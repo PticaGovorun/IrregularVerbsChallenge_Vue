@@ -10,6 +10,11 @@
 
 <style>
   @import "~normalize.css";
+
+  html, body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #2e2e2e;
+  }
 /*#app {*/
 /*  font-family: 'Avenir', Helvetica, Arial, sans-serif;*/
 /*  -webkit-font-smoothing: antialiased;*/
