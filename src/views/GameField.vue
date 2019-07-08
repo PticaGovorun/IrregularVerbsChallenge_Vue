@@ -1,6 +1,6 @@
 <template>
   <div id="container">
-    <Typer-Element text="Okay, here we go!"/>
+    <Typer-Element propText="Okay, here we go!"/>
     <Verbs-Input-Form />
   </div>
 </template>
