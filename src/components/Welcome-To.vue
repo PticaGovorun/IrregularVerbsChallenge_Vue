@@ -3,9 +3,9 @@
     <p>Welcome to</p>
     <h1>Irregular Verbs Challenge</h1>
     <p>What to do? &#8594; enter three forms of verbs as many as you can.</p>
-<!--    <input id="bring-it-on_btn" type="button" value="Bring it on!" onclick=bringItOn()>-->
-<!--    <button id="bring-it-on_btn">Bring it on!</button>-->
-    <Default-Button value="Bring it on!" @click=""/>
+    <router-link to="/gameField">
+      <Default-Button value="Bring it on!"/>
+    </router-link>
   </div>
 </template>
 

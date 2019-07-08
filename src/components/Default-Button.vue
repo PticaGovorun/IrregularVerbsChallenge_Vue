@@ -1,9 +1,7 @@
 <template>
-  <router-link to="/gameField">
-    <button>
-      {{ value }}
-    </button>
-  </router-link>
+  <button>
+    {{ value }}
+  </button>
 </template>
 
 <script>
