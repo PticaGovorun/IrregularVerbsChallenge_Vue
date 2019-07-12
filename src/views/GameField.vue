@@ -1,6 +1,7 @@
 <template>
   <div id="container">
-    <Typer-Element propText="Okay, here we go!"/>
+    <Typer-Element propText="Okay, here we go!"
+                   :textForTyping="pickedVerb[4]" />
     <Verbs-Input-Form />
   </div>
 </template>
@@ -11,9 +12,30 @@
 
   export default {
     name: "GameField",
+    props: {
+      verbs: {
+        type: Array,
+        required: true,
+        default:
+          [["0","null","null","null","Error: the prop-verbs was not received from the parent"]]
+      }
+    },
     components:{
       TyperElement,
       VerbsInputForm
+    },
+    data: function () {
+      return {
+        pickedVerb: ""
+      }
+    },
+    methods: {
+      pickRandomVerb() {
+        this.pickedVerb = this.verbs[Math.floor( Math.random() *
+          this.verbs.length )]
+      }
+    },
+    created() {
     }
   }
 </script>
