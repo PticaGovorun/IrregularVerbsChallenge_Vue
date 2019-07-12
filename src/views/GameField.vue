@@ -39,7 +39,7 @@
     },
     data: function () {
       return {
-        pickedVerb: ""
+        pickedVerb: []
       }
     },
     methods: {
