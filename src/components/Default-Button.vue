@@ -1,5 +1,5 @@
 <template>
-  <button>
+  <button :type="type">
     {{ value }}
   </button>
 </template>
@@ -8,7 +8,11 @@
 export default {
   name: "Default-Button",
   props: {
-    value: String
+    value: String,
+    type: {
+      type: String,
+      default: "button"
+    }
   }
 };
 </script>

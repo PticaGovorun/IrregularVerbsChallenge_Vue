@@ -10,8 +10,8 @@
       </div>
       <div id="input-btns_div">
         <Default-Button class="m-3 def-btn" value="Give up"/>
-        <Default-Button class="m-3 def-btn" value="Reset"/>
-        <Default-Button class="m-3 def-btn" value="Submit"/>
+        <Default-Button class="m-3 def-btn" value="Reset" type="reset"/>
+        <Default-Button class="m-3 def-btn" value="Submit" type="submit"/>
       </div>
     </form>
   </div>
