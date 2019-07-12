@@ -5,16 +5,16 @@
 </template>
 
 <script>
-export default {
-  name: "Default-Button",
-  props: {
-    value: String,
-    type: {
-      type: String,
-      default: "button"
+  export default {
+    name: "Default-Button",
+    props: {
+      value: String,
+      type: {
+        type: String,
+        default: "button"
+      }
     }
-  }
-};
+  };
 </script>
 
 <style scoped>
