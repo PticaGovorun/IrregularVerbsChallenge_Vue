@@ -6,12 +6,15 @@
   export default {
     name: "Typer-Element",
     props: {
-      propText: String
+      propText: String,
+      textForTyping: {
+        type: String,
+        default: "Error: text for typing was not received"
+      }
     },
     data: function () {
       return{
         text: this.propText,
-        textForTyping: "text for typing",
         typingSpeed: 100,
         untypingSpeed: 70
       }
