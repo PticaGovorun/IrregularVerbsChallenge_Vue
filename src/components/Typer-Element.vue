@@ -52,6 +52,11 @@
       },
 
     },
+    watch: {
+      textForTyping: function() {
+        this.untypeThenType();
+      }
+    },
     mounted: function() {
       // setTimeout(this.type, 1500, this.textForTyping);
       this.untypeThenType();
