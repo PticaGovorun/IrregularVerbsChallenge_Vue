@@ -9,7 +9,8 @@
         <Verb-Input class="m-3" placeholder="past participle (v3)" v-model="pastParticipleInputValue"/>
       </div>
       <div id="input-btns_div">
-        <Default-Button class="m-3 def-btn" value="Give up" @click="lose"/>
+        <Default-Button class="m-3 def-btn" value="Give up"
+                        @click.native="lose"/>
         <Default-Button class="m-3 def-btn" value="Reset"
                         @click.native="resetInputs"/>
         <Default-Button class="m-3 def-btn" value="Submit" type="submit"
