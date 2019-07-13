@@ -4,6 +4,7 @@
     pattern="^[a-zA-Z\s]+$"
     required
     :placeholder="placeholder"
+    :value="value"
     @input="$emit('input', $event.target.value)"
   />
 </template>
@@ -12,7 +13,8 @@
 export default {
   name: "Verb-Input",
   props: {
-    placeholder: String
+    placeholder: String,
+    value: String
   }
 };
 </script>
