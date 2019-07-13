@@ -74,6 +74,7 @@
       },
       lose() {
         this.$emit("update:score", this.score);
+        this.$router.push("ScoreView");
       }
     },
     created() {
