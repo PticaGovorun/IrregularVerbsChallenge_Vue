@@ -67,7 +67,7 @@
 
         this.score++;
         this.pickRandomVerb();
-        // document.getElementById("reset-btn").click();
+        this.resetInputs();
       },
       resetInputs() {
         this.infinitiveInputValue = this.pastSimpleInputValue =
