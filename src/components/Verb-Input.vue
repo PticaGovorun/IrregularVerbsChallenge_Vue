@@ -1,8 +1,6 @@
 <template>
   <input
     type="text"
-    pattern="^[a-zA-Z\s]+$"
-    required
     :placeholder="placeholder"
     :value="value"
     @input="$emit('input', $event.target.value)"

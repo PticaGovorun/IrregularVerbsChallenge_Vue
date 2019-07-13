@@ -14,7 +14,7 @@
         <Default-Button class="m-3 def-btn" value="Reset"
                         @click.native="resetInputs"/>
         <Default-Button class="m-3 def-btn" value="Submit" type="submit"
-                        @click.native="submitVerbs"/>
+                        @click.native.prevent="submitVerbs"/>
       </div>
     </form>
   </div>
