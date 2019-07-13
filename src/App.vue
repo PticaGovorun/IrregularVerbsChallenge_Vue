@@ -5,7 +5,7 @@
 <!--      <router-link to="/gameField">Game Field</router-link>-->
 <!--    </div>-->
 <!--    <router-view/>-->
-    <router-view :verbs="verbs"/>
+    <router-view :verbs="verbs" :score.sync="score"/>
   </div>
 </template>
 
@@ -14,7 +14,8 @@
     name: "App",
     data: function () {
       return {
-        verbs: [["0","null","null","null","Error: could not fetch verbs"]]
+        verbs: [["0","null","null","null","Error: could not fetch verbs"]],
+        score: 0
       }
     },
     created() {

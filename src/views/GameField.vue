@@ -2,16 +2,18 @@
   <div id="container">
     <Typer-Element propText="Okay, here we go!"
                    :textForTyping="pickedVerb[4]" />
-    <form id="verbs_form" action="#" autocomplete="off">
+    <form id="verbs_form" autocomplete="off">
       <div>
-        <Verb-Input class="m-3" placeholder="infinitive (v1)"/>
-        <Verb-Input class="m-3" placeholder="past simple (v2)"/>
-        <Verb-Input class="m-3" placeholder="past participle (v3)"/>
+        <Verb-Input class="m-3" placeholder="infinitive (v1)" v-model="infinitiveInputValue"/>
+        <Verb-Input class="m-3" placeholder="past simple (v2)" v-model="pastSimpleInputValue"/>
+        <Verb-Input class="m-3" placeholder="past participle (v3)" v-model="pastParticipleInputValue"/>
       </div>
       <div id="input-btns_div">
-        <Default-Button class="m-3 def-btn" value="Give up"/>
-        <Default-Button class="m-3 def-btn" value="Reset" type="reset"/>
-        <Default-Button class="m-3 def-btn" value="Submit" type="submit"/>
+        <Default-Button class="m-3 def-btn" value="Give up" @click="lose"/>
+        <Default-Button class="m-3 def-btn" value="Reset"
+                        @click.native="resetInputs"/>
+        <Default-Button class="m-3 def-btn" value="Submit" type="submit"
+                        @click.native="submitVerbs"/>
       </div>
     </form>
   </div>
@@ -30,6 +32,10 @@
         required: true,
         default:
           [["0","null","null","null","Error: the prop-verbs was not received from the parent"]]
+      },
+      score: {
+        type: Number,
+        required: true
       }
     },
     components:{
@@ -39,13 +45,35 @@
     },
     data: function () {
       return {
-        pickedVerb: []
+        pickedVerb: [],
+        infinitiveInputValue: "",
+        pastSimpleInputValue: "",
+        pastParticipleInputValue: ""
       }
     },
     methods: {
       pickRandomVerb() {
         this.pickedVerb = this.verbs[Math.floor( Math.random() *
           this.verbs.length )]
+      },
+      submitVerbs() {
+        if (this.pickedVerb[1] !== this.infinitiveInputValue ||
+            this.pickedVerb[2] !== this.pastSimpleInputValue ||
+            this.pickedVerb[3] !== this.pastParticipleInputValue) {
+          this.lose();
+          return;
+        }
+
+        this.score++;
+        this.pickRandomVerb();
+        // document.getElementById("reset-btn").click();
+      },
+      resetInputs() {
+        this.infinitiveInputValue = this.pastSimpleInputValue =
+          this.pastParticipleInputValue = "";
+      },
+      lose() {
+        this.$emit("update:score", this.score);
       }
     },
     created() {

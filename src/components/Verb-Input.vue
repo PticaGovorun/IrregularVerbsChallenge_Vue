@@ -4,6 +4,7 @@
     pattern="^[a-zA-Z\s]+$"
     required
     :placeholder="placeholder"
+    @input="$emit('input', $event.target.value)"
   />
 </template>
 
