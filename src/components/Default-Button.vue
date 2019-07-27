@@ -25,7 +25,6 @@
     border: 1px #DADADA solid;
     padding: 5px 10px;
     border-radius: 2px;
-    margin-bottom: 4px;
   }
 
   button:hover {
