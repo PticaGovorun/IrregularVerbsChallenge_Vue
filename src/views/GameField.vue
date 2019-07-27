@@ -4,9 +4,12 @@
                    :textForTyping="pickedVerb[4]" />
     <form id="verbs_form" autocomplete="off">
       <div>
-        <Verb-Input class="m-3" placeholder="infinitive (v1)" v-model="infinitiveInputValue"/>
-        <Verb-Input class="m-3" placeholder="past simple (v2)" v-model="pastSimpleInputValue"/>
-        <Verb-Input class="m-3" placeholder="past participle (v3)" v-model="pastParticipleInputValue"/>
+        <Default-Input class="m-3" placeholder="infinitive (v1)"
+                       v-model="infinitiveInputValue"/>
+        <Default-Input class="m-3" placeholder="past simple (v2)"
+                       v-model="pastSimpleInputValue"/>
+        <Default-Input class="m-3" placeholder="past participle (v3)"
+                       v-model="pastParticipleInputValue"/>
       </div>
       <div id="input-btns_div">
         <Default-Button class="m-3 def-btn" value="Give up"
@@ -22,7 +25,7 @@
 
 <script>
   import TyperElement from "@/components/Typer-Element.vue";
-  import VerbInput from "@/components/Verb-Input.vue";
+  import DefaultInput from "@/components/Default-Input.vue";
   import DefaultButton from "@/components/Default-Button.vue";
 
   export default {
@@ -41,7 +44,7 @@
     },
     components:{
       TyperElement,
-      VerbInput,
+      DefaultInput,
       DefaultButton
     },
     data: function () {
