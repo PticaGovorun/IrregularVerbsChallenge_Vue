@@ -1,10 +1,20 @@
 <template>
   <div id="container">
     <p id="score_p">{{ score }}</p>
+    <form>
+      <Default-Input class="m-3" placeholder="Your Name"/>
+      <Default-Button class="m-3" value="Submit" @click.native="lose"/>
+    </form>
+    <Default-Table/>
+    <Default-Button class="m-3" value="Back"/>
   </div>
 </template>
 
 <script>
+  import DefaultInput from "@/components/Default-Input.vue";
+  import DefaultButton from "@/components/Default-Button.vue";
+  import DefaultTable from "@/components/Default-Table.vue";
+
   export default {
     name: "ScoreView",
     props: {
@@ -12,6 +22,11 @@
         type: Number,
         required: true
       }
+    },
+    components: {
+      DefaultInput,
+      DefaultButton,
+      DefaultTable
     }
   }
 </script>
@@ -30,5 +45,13 @@
   #score_p {
     font-size: 250%;
     margin: 10px;
+  }
+
+  form {
+    display: flex;
+  }
+
+  .m-3 {
+    margin: 3px;
   }
 </style>
