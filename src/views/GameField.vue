@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+    <!--"pickedVerb[4]" is the russian form of the verb-->
     <Typer-Element propText="Okay, here we go!"
                    :textForTyping="pickedVerb[4]" />
     <form id="verbs_form" autocomplete="off">
