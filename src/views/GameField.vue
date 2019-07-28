@@ -14,7 +14,7 @@
       </div>
       <div id="input-btns_div">
         <Default-Button class="m-3 def-btn" value="Give up"
-                        @click.native="lose"/>
+                        @click.native="defeat"/>
         <Default-Button class="m-3 def-btn" value="Reset"
                         @click.native="resetInputs"/>
         <Default-Button class="m-3 def-btn" value="Submit" type="submit"
@@ -65,7 +65,7 @@
         if (this.pickedVerb[1] !== this.infinitiveInputValue ||
             this.pickedVerb[2] !== this.pastSimpleInputValue ||
             this.pickedVerb[3] !== this.pastParticipleInputValue) {
-          this.lose();
+          this.defeat();
           return;
         }
 
@@ -77,7 +77,7 @@
         this.infinitiveInputValue = this.pastSimpleInputValue =
           this.pastParticipleInputValue = "";
       },
-      lose() {
+      defeat() {
         this.$emit("update:score", this.score);
         this.$router.push("ScoreView");
       }
