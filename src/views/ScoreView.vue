@@ -6,7 +6,8 @@
       <Default-Button class="m-3" value="Submit" @click.native="lose"/>
     </form>
     <Default-Table/>
-    <Default-Button class="m-3" value="Back"/>
+    <router-link
+        to="/GameField"><Default-Button class="m-3" value="Back"/></router-link>
   </div>
 </template>
 

@@ -83,6 +83,9 @@
       }
     },
     created() {
+      this.score = 0;
+      this.$emit("update:score", this.score);
+
       this.pickRandomVerb();
     }
   }
