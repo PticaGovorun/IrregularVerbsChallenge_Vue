@@ -1,5 +1,5 @@
 <template>
-  <table id='score_table'>
+  <table>
     <thead>
     <tr>
       <th>#</th>
@@ -8,7 +8,7 @@
       <th>Date</th>
     </tr>
     </thead>
-    <tbody id='score_table_body'>
+    <tbody>
     <tr>
       <td>1</td>
       <td>testName1</td>
@@ -41,9 +41,6 @@
   table {
     box-shadow: 0 1px 3px 0 rgba(0,0,0,0.19);
     margin: 5px;
-  }
-
-  #score_table {
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 5px;
