@@ -40,7 +40,7 @@
         let scoreTable = await response.json(); // returns Array
 
         this.scoreTableBodyContent = filterTableByName(scoreTable);
-        this.scoreTableBodyContent = formatDates(this.scoreTableBodyContent);
+        this.scoreTableBodyContent = formatDates(this.scoreTableBodyContent.slice());
 
         // Supporting functions are below
         function filterTableByName(scoreTable) {
