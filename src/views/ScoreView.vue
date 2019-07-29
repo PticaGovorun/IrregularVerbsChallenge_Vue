@@ -5,7 +5,7 @@
       <Default-Input class="m-3" placeholder="Your Name"/>
       <Default-Button class="m-3" value="Submit" @click.native="defeat"/>
     </form>
-    <Default-Table/>
+    <Default-Table :bodyContent="scoreTableBodyContent"/>
     <router-link
         to="/GameField"><Default-Button class="m-3" value="Back"/></router-link>
   </div>
@@ -18,6 +18,11 @@
 
   export default {
     name: "ScoreView",
+    data: function () {
+      return {
+        scoreTableBodyContent: null
+      }
+    },
     props: {
       score: {
         type: Number,
@@ -28,6 +33,56 @@
       DefaultInput,
       DefaultButton,
       DefaultTable
+    },
+    methods: {
+      async serveScoreTable() {
+        let response = await fetch("json_score_tabl_db_get.php");
+        let scoreTable = await response.json(); // returns Array
+
+        this.scoreTableBodyContent = filterTableByName(scoreTable);
+        this.scoreTableBodyContent = formatDates(this.scoreTableBodyContent);
+
+        // Supporting functions are below
+        function filterTableByName(scoreTable) {
+          let filteredScoreTable = [];
+          let names = {};
+
+          for (let row of scoreTable) {
+            if (names.hasOwnProperty( row.name )) continue;
+
+            filteredScoreTable.push( row );
+            names[ row.name ] = null;
+          }
+
+          return filteredScoreTable;
+        }
+
+        function formatDates(scoreTable) {
+          let date, day, monthIndex, year;
+
+          let monthNames = [
+            "Jan", "Feb", "Mar",
+            "Apr", "May", "Jun", "Jul",
+            "Aug", "Sep", "Oct",
+            "Nov", "Dec"
+          ];
+
+          for (let row of scoreTable) {
+            date = new Date(row.date);
+
+            day = date.getDate();
+            monthIndex = date.getMonth();
+            year = date.getFullYear();
+
+            row.date = `${day} ${monthNames[monthIndex]} ${year}`;
+          }
+
+          return scoreTable;
+        }
+      },
+    },
+    created() {
+      this.serveScoreTable();
     }
   }
 </script>

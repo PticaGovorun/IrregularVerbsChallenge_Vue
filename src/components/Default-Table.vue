@@ -1,39 +1,30 @@
 <template>
   <table>
     <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Score</th>
-      <th>Date</th>
-    </tr>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Score</th>
+        <th>Date</th>
+      </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>1</td>
-      <td>testName1</td>
-      <td>Score1</td>
-      <td>Date1</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>testName2</td>
-      <td>Score2</td>
-      <td>Date2</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>testName3</td>
-      <td>Score3</td>
-      <td>Date3</td>
-    </tr>
+      <tr v-for="(row, index) in bodyContent" :key="index">
+        <td>{{ index + 1 }}</td>
+        <td>{{ row.name }}</td>
+        <td>{{ row.score }}</td>
+        <td>{{ row.date }}</td>
+      </tr>
     </tbody>
   </table>
 </template>
 
 <script>
   export default {
-    name: "Default-Table"
+    name: "Default-Table",
+    props: {
+      bodyContent: Array
+    }
   }
 </script>
 
