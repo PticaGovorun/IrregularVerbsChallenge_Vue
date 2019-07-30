@@ -5,7 +5,7 @@
 <!--      <router-link to="/gameField">Game Field</router-link>-->
 <!--    </div>-->
 <!--    <router-view/>-->
-    <router-view :verbs="verbs" :score.sync="score"/>
+    <router-view v-if="isVerbsFetched" :verbs="verbs" :score.sync="score"/>
   </div>
 </template>
 
@@ -15,6 +15,7 @@
     data: function () {
       return {
         verbs: [["0","null","null","null","Error: could not fetch verbs"]],
+        isVerbsFetched: false,
         score: 0
       }
     },
@@ -22,10 +23,11 @@
       this.fetchVerbs();
     },
     methods: {
-      fetchVerbs() {
-        this.verbs = JSON.parse(`[["1","say","said","said","говорить"],
-                                  ["2","make","made","made","делать/производить"],
-                                  ["3","go","went","gone","идти"]]`)
+      async fetchVerbs() {
+        let response = await fetch("verbs100array.json");
+        this.verbs = await response.json();
+
+        if (response.ok) this.isVerbsFetched = true;
       }
     }
   }
