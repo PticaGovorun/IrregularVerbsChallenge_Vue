@@ -3,7 +3,7 @@
     <p id="score_p">{{ score }}</p>
     <form>
       <Default-Input class="m-3" placeholder="Your Name"/>
-      <Default-Button class="m-3" value="Submit" @click.native="defeat"/>
+      <Default-Button class="m-3" value="Submit"/>
     </form>
     <Default-Table :bodyContent="scoreTableBodyContent"/>
     <router-link
