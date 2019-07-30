@@ -6,6 +6,12 @@
 <!--    </div>-->
 <!--    <router-view/>-->
     <router-view v-if="isVerbsFetched" :verbs="verbs" :score.sync="score"/>
+    <div v-if="isVerbsFetchError" id="fetch-error_div">
+      <p id="sad-smile">(-_-)</p>
+      <h2 id="fetch-error_h2">
+        Error: could not fetch irregular verbs, come back later...
+      </h2>
+    </div>
   </div>
 </template>
 
@@ -14,20 +20,21 @@
     name: "App",
     data: function () {
       return {
-        verbs: [["0","null","null","null","Error: could not fetch verbs"]],
+        verbs: null,
         isVerbsFetched: false,
+        isVerbsFetchError: false,
         score: 0
       }
     },
     created() {
-      this.fetchVerbs();
+      this.fetchVerbs()
+        .then(() => this.isVerbsFetched = true)
+        .catch(e => {this.isVerbsFetchError = true; console.error(e);});
     },
     methods: {
       async fetchVerbs() {
         let response = await fetch("verbs100array.json");
         this.verbs = await response.json();
-
-        if (response.ok) this.isVerbsFetched = true;
       }
     }
   }
@@ -40,6 +47,14 @@
     font-family: Arial, Helvetica, sans-serif;
     color: #2e2e2e;
     overflow: hidden;
+  }
 
+  #fetch-error_div {
+    text-align: center;
+  }
+
+  #sad-smile {
+    font-size: 1000%;
+    margin: 20vh 0 10vh 0;
   }
 </style>
