@@ -59,7 +59,8 @@
     methods: {
       pickRandomVerb() {
         this.pickedVerb = this.verbs[Math.floor( Math.random() *
-          this.verbs.length )]
+          this.verbs.length )];
+        console.dir(this.pickedVerb); //shhhhh
       },
       submitVerbs() {
         if (this.pickedVerb[1] !== this.infinitiveInputValue ||
