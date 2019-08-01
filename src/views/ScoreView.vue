@@ -111,6 +111,8 @@
 
         this.scoreTable = this.filterTableByName(this.scoreTable.slice());
         this.scoreTable = this.formatDates(this.scoreTable.slice());
+
+        this.userName = '';
       }
     },
     created() {
