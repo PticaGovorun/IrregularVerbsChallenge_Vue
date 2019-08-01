@@ -2,8 +2,9 @@
   <div id="container">
     <p id="score_p">{{ score }}</p>
     <form>
-      <Default-Input class="m-3" placeholder="Your Name"/>
-      <Default-Button class="m-3" value="Submit"/>
+      <Default-Input class="m-3" placeholder="Your Name" v-model="userName"/>
+      <Default-Button class="m-3" value="Submit"
+                      @click.native="submitNameAndScore"/>
     </form>
     <Default-Table :bodyContent="scoreTable"/>
     <router-link
@@ -21,7 +22,8 @@
 
     data: function () {
       return {
-        scoreTable: null
+        scoreTable: null,
+        userName: ""
       }
     },
 
@@ -82,6 +84,33 @@
         }
 
         return scoreTable;
+      },
+
+      async submitNameAndScore() {
+        if (this.score === 0) {
+          alert("Score is zero. Come on, is that all you got? ;)");
+          return;
+        }
+
+        if (this.userName.trim() === "") {
+          alert("Name field is empty. Do you have a name?");
+          return;
+        }
+
+        let nameAndScore = {
+          "name": this.userName,
+          "score": this.score
+        };
+
+        let response = await fetch("json_score_tabl_db_post.php", {
+          method: 'POST',
+          headers: {'Content-Type': "application/x-www-form-urlencoded"},
+          body: "dbParams_json=" + JSON.stringify(nameAndScore)
+        });
+        this.scoreTable = await response.json();
+
+        this.scoreTable = this.filterTableByName(this.scoreTable.slice());
+        this.scoreTable = this.formatDates(this.scoreTable.slice());
       }
     },
     created() {
