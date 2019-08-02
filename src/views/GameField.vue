@@ -5,20 +5,38 @@
                    :textForTyping="pickedVerb[4]" />
     <form id="verbs_form" autocomplete="off">
       <div>
-        <Default-Input class="m-3" placeholder="infinitive (v1)"
+        <Default-Input class="m-3"
+                       :class="{ red_border: isVerb1Incorrect }"
+                       placeholder="infinitive (v1)"
                        v-model="infinitiveInputValue"/>
-        <Default-Input class="m-3" placeholder="past simple (v2)"
+        <Default-Input class="m-3"
+                       :class="{ red_border: isVerb2Incorrect }"
+                       placeholder="past simple (v2)"
                        v-model="pastSimpleInputValue"/>
-        <Default-Input class="m-3" placeholder="past participle (v3)"
+        <Default-Input class="m-3"
+                       :class="{ red_border: isVerb3Incorrect }"
+                       placeholder="past participle (v3)"
                        v-model="pastParticipleInputValue"/>
       </div>
       <div id="input-btns_div">
-        <Default-Button class="m-3 def-btn" value="Give up"
+        <Default-Button v-if="!isDefeated"
+                        class="m-3 def-btn"
+                        value="Give up"
                         @click.native="defeat"/>
-        <Default-Button class="m-3 def-btn" value="Reset"
+        <Default-Button v-if="!isDefeated"
+                        class="m-3 def-btn"
+                        value="Reset"
                         @click.native="resetInputs"/>
-        <Default-Button class="m-3 def-btn" value="Submit" type="submit"
+        <Default-Button v-if="!isDefeated"
+                        class="m-3 def-btn"
+                        value="Submit"
+                        type="submit"
                         @click.native.prevent="submitVerbs"/>
+
+        <Default-Button v-if="isDefeated"
+                        class="m-3 def-btn"
+                        value="Score view"
+                        @click.native.prevent="defeat"/>
       </div>
     </form>
   </div>
@@ -51,9 +69,16 @@
     data: function () {
       return {
         pickedVerb: [],
+
         infinitiveInputValue: "",
         pastSimpleInputValue: "",
-        pastParticipleInputValue: ""
+        pastParticipleInputValue: "",
+
+        isDefeated: false,
+
+        isVerb1Incorrect: false,
+        isVerb2Incorrect: false,
+        isVerb3Incorrect: false
       }
     },
     methods: {
@@ -63,12 +88,26 @@
         console.dir(this.pickedVerb); //shhhhh
       },
       submitVerbs() {
-        if (this.pickedVerb[1] !== this.infinitiveInputValue ||
-            this.pickedVerb[2] !== this.pastSimpleInputValue ||
-            this.pickedVerb[3] !== this.pastParticipleInputValue) {
-          this.defeat();
+        if (this.pickedVerb[1] !== this.infinitiveInputValue) {
+          this.isVerb1Incorrect = true;
+          this.isDefeated = true;
+        }
+
+        if (this.pickedVerb[2] !== this.pastSimpleInputValue) {
+          this.isVerb2Incorrect = true;
+          this.isDefeated = true;
+        }
+
+        if (this.pickedVerb[3] !== this.pastParticipleInputValue) {
+          this.isVerb3Incorrect = true;
+          this.isDefeated = true;
+        }
+
+        if (this.isDefeated) {
+          document.activeElement.blur();
           return;
         }
+
 
         this.score++;
         this.pickRandomVerb();
@@ -120,5 +159,9 @@
 
   .def-btn {
     min-width: 96px;
+  }
+
+  .red_border {
+    border: 1px red dashed;
   }
 </style>
