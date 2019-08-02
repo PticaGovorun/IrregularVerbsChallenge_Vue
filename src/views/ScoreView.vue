@@ -23,7 +23,8 @@
     data: function () {
       return {
         scoreTable: null,
-        userName: ""
+        userName: "",
+        isSubmitted: false
       }
     },
 
@@ -87,6 +88,11 @@
       },
 
       async submitNameAndScore() {
+        if (this.isSubmitted) {
+          alert('You have already submitted your record. Press "Back" and play again.');
+          return;
+        }
+
         if (this.score === 0) {
           alert("Score is zero. Come on, is that all you got? ;)");
           return;
@@ -113,6 +119,7 @@
         this.scoreTable = this.formatDates(this.scoreTable.slice());
 
         this.userName = '';
+        this.isSubmitted = true;
       }
     },
     created() {
