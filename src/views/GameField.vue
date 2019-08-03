@@ -6,17 +6,23 @@
     <form id="verbs_form" autocomplete="off">
       <div>
         <Default-Input class="m-3"
-                       :class="{ red_border: isVerb1Incorrect }"
+                       :class="{ green_border: isDefeated && !isVerb1Incorrect,
+                                 red_border: isVerb1Incorrect }"
                        placeholder="infinitive (v1)"
-                       v-model="infinitiveInputValue"/>
+                       v-model="infinitiveInputValue"
+                       />
         <Default-Input class="m-3"
-                       :class="{ red_border: isVerb2Incorrect }"
+                       :class="{ green_border: isDefeated && !isVerb2Incorrect,
+                                 red_border: isVerb2Incorrect }"
                        placeholder="past simple (v2)"
-                       v-model="pastSimpleInputValue"/>
+                       v-model="pastSimpleInputValue"
+                       />
         <Default-Input class="m-3"
-                       :class="{ red_border: isVerb3Incorrect }"
+                       :class="{ green_border: isDefeated && !isVerb3Incorrect,
+                                 red_border: isVerb3Incorrect }"
                        placeholder="past participle (v3)"
-                       v-model="pastParticipleInputValue"/>
+                       v-model="pastParticipleInputValue"
+                       />
       </div>
       <div id="input-btns_div">
         <Default-Button v-if="!isDefeated"
@@ -163,5 +169,9 @@
 
   .red_border {
     border: 1px red dashed;
+  }
+
+  .green_border {
+    border: 1px green dashed;
   }
 </style>
