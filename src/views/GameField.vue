@@ -5,21 +5,24 @@
                    :textForTyping="pickedVerb[4]" />
     <form id="verbs_form" autocomplete="off">
       <div>
-        <Default-Input class="m-3"
+        <Default-Input id="Default-Input-1"
+                       class="m-3"
                        :class="{ green_border: isDefeated && !isVerb1Incorrect,
                                  red_border: isVerb1Incorrect }"
                        placeholder="infinitive (v1)"
                        v-model="infinitiveInputValue"
                        :readonly="isDefeated"
                        />
-        <Default-Input class="m-3"
+        <Default-Input id="Default-Input-2"
+                       class="m-3"
                        :class="{ green_border: isDefeated && !isVerb2Incorrect,
                                  red_border: isVerb2Incorrect }"
                        placeholder="past simple (v2)"
                        v-model="pastSimpleInputValue"
                        :readonly="isDefeated"
                        />
-        <Default-Input class="m-3"
+        <Default-Input id="Default-Input-3"
+                       class="m-3"
                        :class="{ green_border: isDefeated && !isVerb3Incorrect,
                                  red_border: isVerb3Incorrect }"
                        placeholder="past participle (v3)"
@@ -55,6 +58,9 @@
   import TyperElement from "@/components/Typer-Element.vue";
   import DefaultInput from "@/components/Default-Input.vue";
   import DefaultButton from "@/components/Default-Button.vue";
+
+  import tippy from 'tippy.js';
+  import 'tippy.js/themes/light-border.css';
 
   export default {
     name: "GameField",
@@ -100,23 +106,49 @@
         if (this.pickedVerb[1] !== this.infinitiveInputValue) {
           this.isVerb1Incorrect = true;
           this.isDefeated = true;
+
+          let target = document.querySelector('#Default-Input-1');
+
+          tippy(target, {
+            content: this.pickedVerb[1],
+            placement: 'left'
+          });
+
+          target._tippy.show();
         }
 
         if (this.pickedVerb[2] !== this.pastSimpleInputValue) {
           this.isVerb2Incorrect = true;
           this.isDefeated = true;
+
+          let target = document.querySelector('#Default-Input-2');
+
+          tippy(target, {
+            content: this.pickedVerb[2],
+            placement: 'top-end',
+          });
+
+          target._tippy.show();
         }
 
         if (this.pickedVerb[3] !== this.pastParticipleInputValue) {
           this.isVerb3Incorrect = true;
           this.isDefeated = true;
+
+          let target = document.querySelector('#Default-Input-3');
+
+          tippy(target, {
+            content: this.pickedVerb[3],
+            placement: 'right',
+          });
+
+          target._tippy.show();
         }
 
         if (this.isDefeated) {
           document.activeElement.blur();
           return;
         }
-
 
         this.score++;
         this.pickRandomVerb();
@@ -136,6 +168,18 @@
       this.$emit("update:score", this.score);
 
       this.pickRandomVerb();
+    },
+    mounted() {
+      tippy.setDefaults({
+        trigger: 'mouseenter',
+        arrow: true,
+        interactive: true,
+        theme: 'light-border',
+        ignoreAttributes: true,
+        popperOptions: {
+
+        }
+      })
     }
   }
 </script>
