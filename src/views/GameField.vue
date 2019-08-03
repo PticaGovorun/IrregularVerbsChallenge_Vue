@@ -10,18 +10,21 @@
                                  red_border: isVerb1Incorrect }"
                        placeholder="infinitive (v1)"
                        v-model="infinitiveInputValue"
+                       :readonly="isDefeated"
                        />
         <Default-Input class="m-3"
                        :class="{ green_border: isDefeated && !isVerb2Incorrect,
                                  red_border: isVerb2Incorrect }"
                        placeholder="past simple (v2)"
                        v-model="pastSimpleInputValue"
+                       :readonly="isDefeated"
                        />
         <Default-Input class="m-3"
                        :class="{ green_border: isDefeated && !isVerb3Incorrect,
                                  red_border: isVerb3Incorrect }"
                        placeholder="past participle (v3)"
                        v-model="pastParticipleInputValue"
+                       :readonly="isDefeated"
                        />
       </div>
       <div id="input-btns_div">
