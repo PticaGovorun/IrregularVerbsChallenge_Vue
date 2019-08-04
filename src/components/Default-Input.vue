@@ -8,13 +8,13 @@
 </template>
 
 <script>
-export default {
-  name: "Verb-Input",
-  props: {
-    placeholder: String,
-    value: String
-  }
-};
+  export default {
+    name: "Verb-Input",
+    props: {
+      placeholder: String,
+      value: String
+    }
+  };
 </script>
 
 <style scoped>
