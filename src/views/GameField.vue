@@ -32,13 +32,11 @@
       </div>
       <div id="input-btns_div">
         <Default-Button v-if="!isDefeated"
-                        class="def-btn"
                         value="Submit"
                         type="submit"
                         @click.native.prevent="submitVerbs"
                         />
         <Default-Button v-if="isDefeated"
-                        class="def-btn"
                         value="Score view"
                         @click.native.prevent="defeat"
                         />
@@ -190,10 +188,6 @@
 
   .m-3 {
     margin: 3px;
-  }
-
-  .def-btn {
-    min-width: 96px;
   }
 
   .red_border {
