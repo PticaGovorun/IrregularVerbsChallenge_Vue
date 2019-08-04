@@ -32,15 +32,16 @@
       </div>
       <div id="input-btns_div">
         <Default-Button v-if="!isDefeated"
-                        class="m-3 def-btn"
+                        class="def-btn"
                         value="Submit"
                         type="submit"
-                        @click.native.prevent="submitVerbs"/>
-
+                        @click.native.prevent="submitVerbs"
+                        />
         <Default-Button v-if="isDefeated"
-                        class="m-3 def-btn"
+                        class="def-btn"
                         value="Score view"
-                        @click.native.prevent="defeat"/>
+                        @click.native.prevent="defeat"
+                        />
       </div>
     </form>
   </div>
