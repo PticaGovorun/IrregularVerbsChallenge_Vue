@@ -15,9 +15,9 @@ export default new Router({
       path: '/gameField',
       name: 'gameField',
       // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
+      // this generates a separate chunk (gameField.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/GameField.vue')
+      component: () => import(/* webpackChunkName: "gameField" */ './views/GameField.vue')
     },
     {
       path: '/scoreView',
