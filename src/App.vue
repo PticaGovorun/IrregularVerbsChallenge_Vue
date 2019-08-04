@@ -43,7 +43,7 @@
 <style>
   @import "~normalize.css";
 
-  #app {
+  body {
     font-family: Arial, Helvetica, sans-serif;
     color: #2e2e2e;
     overflow: hidden;
