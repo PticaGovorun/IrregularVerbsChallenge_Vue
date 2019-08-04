@@ -100,42 +100,21 @@
           this.isVerb1Incorrect = true;
           this.isDefeated = true;
 
-          let target = document.querySelector('#Default-Input-1');
-
-          tippy(target, {
-            content: this.pickedVerb[1],
-            placement: 'left'
-          });
-
-          target._tippy.show();
+          this.createTippy('#Default-Input-1', this.pickedVerb[1], 'left');
         }
 
         if (this.pickedVerb[2] !== this.pastSimpleInputValue) {
           this.isVerb2Incorrect = true;
           this.isDefeated = true;
 
-          let target = document.querySelector('#Default-Input-2');
-
-          tippy(target, {
-            content: this.pickedVerb[2],
-            placement: 'top-end',
-          });
-
-          target._tippy.show();
+          this.createTippy('#Default-Input-2', this.pickedVerb[2], 'top-end');
         }
 
         if (this.pickedVerb[3] !== this.pastParticipleInputValue) {
           this.isVerb3Incorrect = true;
           this.isDefeated = true;
 
-          let target = document.querySelector('#Default-Input-3');
-
-          tippy(target, {
-            content: this.pickedVerb[3],
-            placement: 'right',
-          });
-
-          target._tippy.show();
+          this.createTippy('#Default-Input-3', this.pickedVerb[3], 'right');
         }
 
         if (this.isDefeated) {
@@ -154,6 +133,16 @@
       defeat() {
         this.$emit("update:score", this.score);
         this.$router.push("ScoreView");
+      },
+      createTippy(cssSelector, verb, placement) {
+        let target = document.querySelector(cssSelector);
+
+        tippy(target, {
+          content: verb,
+          placement: placement
+        });
+
+        target._tippy.show();
       }
     },
     created() {
