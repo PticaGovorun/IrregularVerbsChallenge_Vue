@@ -1,34 +1,7 @@
-# ivc
+# Irregular Verbs Challenge
 
-## Project setup
-```
-npm install
-```
+The project was created for educational purposes/Проектик создан в образовательных целях.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+The point of Irregular Verbs Challenge is to challenge yourself and compete with your friends in the knowledge of the irregular verbs of English language/Суть Irregular Verbs Challenge испытать себя и потягаться с друзьями в знании неправльных глаголов английского языка.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Development in the process/Разработка в процессе.
