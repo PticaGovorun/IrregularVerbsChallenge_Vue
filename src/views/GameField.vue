@@ -184,7 +184,7 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-    margin: 0 40px 0 40px;
+    margin: 0 100px 0 100px;
   }
 
   form {
