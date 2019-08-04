@@ -1,5 +1,11 @@
 <template>
-  <p>{{ text }}<span>&nbsp;</span></p>
+  <!--
+    The second '&nbsp;' or 'non-breaking space' is needed here in order to
+    keep space when the write-typer is empty, so other elements won't try to
+    jump on his space. And the first one is needed in order to center entire
+    write-typer.
+  -->
+  <p>&nbsp;{{ text }}<span>&nbsp;</span></p>
 </template>
 
 <script>
