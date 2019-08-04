@@ -33,14 +33,6 @@
       <div id="input-btns_div">
         <Default-Button v-if="!isDefeated"
                         class="m-3 def-btn"
-                        value="Give up"
-                        @click.native="defeat"/>
-        <Default-Button v-if="!isDefeated"
-                        class="m-3 def-btn"
-                        value="Reset"
-                        @click.native="resetInputs"/>
-        <Default-Button v-if="!isDefeated"
-                        class="m-3 def-btn"
                         value="Submit"
                         type="submit"
                         @click.native.prevent="submitVerbs"/>
