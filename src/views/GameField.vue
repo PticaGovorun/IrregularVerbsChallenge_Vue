@@ -30,17 +30,16 @@
                        :readonly="isDefeated"
                        />
       </div>
-      <div id="input-btns_div">
+      <div id="btns-container">
         <Default-Button v-if="!isDefeated"
-                        class="m-3 def-btn"
                         value="Submit"
                         type="submit"
-                        @click.native.prevent="submitVerbs"/>
-
+                        @click.native.prevent="submitVerbs"
+                        />
         <Default-Button v-if="isDefeated"
-                        class="m-3 def-btn"
                         value="Score view"
-                        @click.native.prevent="defeat"/>
+                        @click.native="defeat"
+                        />
       </div>
     </form>
   </div>
@@ -62,10 +61,6 @@
         required: true,
         default:
           [["0","null","null","null","Error: the prop-verbs was not received from the parent"]]
-      },
-      score: {
-        type: Number,
-        required: true
       }
     },
     components:{
@@ -85,7 +80,13 @@
 
         isVerb1Incorrect: false,
         isVerb2Incorrect: false,
-        isVerb3Incorrect: false
+        isVerb3Incorrect: false,
+
+        score: Number,
+
+        defaultInput_1: null,
+        defaultInput_2: null,
+        defaultInput_3: null
       }
     },
     methods: {
@@ -99,42 +100,21 @@
           this.isVerb1Incorrect = true;
           this.isDefeated = true;
 
-          let target = document.querySelector('#Default-Input-1');
-
-          tippy(target, {
-            content: this.pickedVerb[1],
-            placement: 'left'
-          });
-
-          target._tippy.show();
+          this.createTippy(this.defaultInput_1, this.pickedVerb[1], 'left');
         }
 
         if (this.pickedVerb[2] !== this.pastSimpleInputValue) {
           this.isVerb2Incorrect = true;
           this.isDefeated = true;
 
-          let target = document.querySelector('#Default-Input-2');
-
-          tippy(target, {
-            content: this.pickedVerb[2],
-            placement: 'top-end',
-          });
-
-          target._tippy.show();
+          this.createTippy(this.defaultInput_2, this.pickedVerb[2], 'top-end');
         }
 
         if (this.pickedVerb[3] !== this.pastParticipleInputValue) {
           this.isVerb3Incorrect = true;
           this.isDefeated = true;
 
-          let target = document.querySelector('#Default-Input-3');
-
-          tippy(target, {
-            content: this.pickedVerb[3],
-            placement: 'right',
-          });
-
-          target._tippy.show();
+          this.createTippy(this.defaultInput_3, this.pickedVerb[3], 'right');
         }
 
         if (this.isDefeated) {
@@ -145,6 +125,7 @@
         this.score++;
         this.pickRandomVerb();
         this.resetInputs();
+        this.defaultInput_1.focus();
       },
       resetInputs() {
         this.infinitiveInputValue = this.pastSimpleInputValue =
@@ -153,6 +134,14 @@
       defeat() {
         this.$emit("update:score", this.score);
         this.$router.push("ScoreView");
+      },
+      createTippy(target, verb, placement) {
+        tippy(target, {
+          content: verb,
+          placement: placement
+        });
+
+        target._tippy.show();
       }
     },
     created() {
@@ -167,11 +156,12 @@
         arrow: true,
         interactive: true,
         theme: 'light-border',
-        ignoreAttributes: true,
-        popperOptions: {
-
-        }
+        ignoreAttributes: true
       });
+
+      this.defaultInput_1 = document.getElementById('Default-Input-1');
+      this.defaultInput_2 = document.getElementById('Default-Input-2');
+      this.defaultInput_3 = document.getElementById('Default-Input-3');
     }
   }
 </script>
@@ -194,16 +184,12 @@
     flex-direction: column;
   }
 
-  #input-btns_div {
+  #btns-container {
     margin: 25px;
   }
 
   .m-3 {
     margin: 3px;
-  }
-
-  .def-btn {
-    min-width: 96px;
   }
 
   .red_border {

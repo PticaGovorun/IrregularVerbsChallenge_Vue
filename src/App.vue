@@ -6,7 +6,7 @@
 <!--    </div>-->
 <!--    <router-view/>-->
     <router-view v-if="isVerbsFetched" :verbs="verbs" :score.sync="score"/>
-    <div v-if="isVerbsFetchError" id="fetch-error_div">
+    <div v-if="isVerbsFetchError" id="fetch-error-container">
       <p id="sad-smile">(-_-)</p>
       <h2 id="fetch-error_h2">
         Error: could not fetch irregular verbs, come back later...
@@ -49,7 +49,7 @@
     overflow: hidden;
   }
 
-  #fetch-error_div {
+  #fetch-error-container {
     text-align: center;
   }
 
