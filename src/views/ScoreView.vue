@@ -9,10 +9,11 @@
                       value="Submit"
                       @click.native="submitNameAndScore"/>
     </form>
+
     <Default-Table :bodyContent="scoreTable"/>
+
     <router-link to="/GameField">
-      <Default-Button class="m-3"
-                      value="Back"/>
+      <Default-Button class="m-3" value="Back"/>
     </router-link>
   </div>
 </template>
@@ -127,6 +128,7 @@
         this.isScoreAndNameSubmitted = true;
       }
     },
+
     created() {
       this.serveScoreTable();
     }

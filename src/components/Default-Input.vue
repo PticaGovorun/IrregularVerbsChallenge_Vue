@@ -9,6 +9,7 @@
 <script>
   export default {
     name: "Verb-Input",
+
     props: {
       value: String
     }
