@@ -125,6 +125,7 @@
         this.score++;
         this.pickRandomVerb();
         this.resetInputs();
+        this.defaultInput_1.focus();
       },
       resetInputs() {
         this.infinitiveInputValue = this.pastSimpleInputValue =
