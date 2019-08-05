@@ -2,7 +2,8 @@
   <div id="container">
     <p id="score_p">{{ score }}</p>
     <form>
-      <Default-Input class="m-3"
+      <Default-Input id='user-name'
+                     class="m-3"
                      placeholder="Your Name"
                      v-model="userName"/>
       <Default-Button class="m-3"
@@ -23,6 +24,9 @@
   import DefaultButton from "@/components/Default-Button.vue";
   import DefaultTable from "@/components/Default-Table.vue";
 
+  import tippy from 'tippy.js';
+  import 'tippy.js/themes/light-border.css';
+
   export default {
     name: "ScoreView",
 
@@ -30,7 +34,10 @@
       return {
         scoreTable: null,
         userName: "",
-        isScoreAndNameSubmitted: false
+        isScoreAndNameSubmitted: false,
+
+        scoreDOM: null,
+        userNameDOM: null
       }
     },
 
@@ -100,12 +107,14 @@
         }
 
         if (this.score === 0) {
-          alert("Score is zero. Come on, is that all you got? ;)");
+          this.createAndShowTippy(this.scoreDOM,
+            'Score is zero. Come on, is that all you got? ;)', 'top');
           return;
         }
 
         if (this.userName.trim() === "") {
-          alert("Name field is empty. Do you have a name?");
+          this.createAndShowTippy(this.userNameDOM,
+            'Name field is empty. What is your name?', 'top');
           return;
         }
 
@@ -126,11 +135,39 @@
 
         this.userName = '';
         this.isScoreAndNameSubmitted = true;
+      },
+
+      createAndShowTippy(target, content, placement) {
+        tippy(target, {
+          content: content,
+          placement: placement
+        });
+
+        target._tippy.show();
       }
     },
 
     created() {
       this.serveScoreTable();
+    },
+
+    mounted() {
+      tippy.setDefaults({
+        trigger: 'mouseenter',
+        arrow: true,
+        interactive: true,
+        theme: 'light-border',
+        ignoreAttributes: true
+      });
+
+      this.scoreDOM = document.getElementById('score_p');
+      this.userNameDOM = document.getElementById('user-name');
+    },
+
+    watch: {
+      userName: function () {
+        this.userNameDOM._tippy.destroy();
+      }
     }
   }
 </script>
