@@ -104,21 +104,21 @@
           this.isVerb1Incorrect = true;
           this.isDefeated = true;
 
-          this.createTippy(this.defaultInput_1, this.pickedVerb[1], 'left');
+          this.createAndShowTippy(this.defaultInput_1, this.pickedVerb[1], 'left');
         }
 
         if (this.pickedVerb[2] !== this.pastSimpleInputValue) {
           this.isVerb2Incorrect = true;
           this.isDefeated = true;
 
-          this.createTippy(this.defaultInput_2, this.pickedVerb[2], 'top-end');
+          this.createAndShowTippy(this.defaultInput_2, this.pickedVerb[2], 'top-end');
         }
 
         if (this.pickedVerb[3] !== this.pastParticipleInputValue) {
           this.isVerb3Incorrect = true;
           this.isDefeated = true;
 
-          this.createTippy(this.defaultInput_3, this.pickedVerb[3], 'right');
+          this.createAndShowTippy(this.defaultInput_3, this.pickedVerb[3], 'right');
         }
 
         if (this.isDefeated) {
@@ -142,7 +142,7 @@
         this.$router.push("ScoreView");
       },
 
-      createTippy(target, verb, placement) {
+      createAndShowTippy(target, verb, placement) {
         tippy(target, {
           content: verb,
           placement: placement
