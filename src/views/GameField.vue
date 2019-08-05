@@ -38,7 +38,7 @@
                         />
         <Default-Button v-if="isDefeated"
                         value="Score view"
-                        @click.native.prevent="defeat"
+                        @click.native="defeat"
                         />
       </div>
     </form>
