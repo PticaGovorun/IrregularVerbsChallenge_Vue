@@ -30,7 +30,7 @@
                        :readonly="isDefeated"
                        />
       </div>
-      <div id="input-btns_div">
+      <div id="btns-container">
         <Default-Button v-if="!isDefeated"
                         value="Submit"
                         type="submit"
@@ -182,7 +182,7 @@
     flex-direction: column;
   }
 
-  #input-btns_div {
+  #btns-container {
     margin: 25px;
   }
 
