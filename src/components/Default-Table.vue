@@ -22,6 +22,7 @@
 <script>
   export default {
     name: "Default-Table",
+
     props: {
       bodyContent: Array
     }

@@ -55,6 +55,7 @@
 
   export default {
     name: "GameField",
+
     props: {
       verbs: {
         type: Array,
@@ -63,11 +64,13 @@
           [["0","null","null","null","Error: the prop-verbs was not received from the parent"]]
       }
     },
+
     components:{
       TyperElement,
       DefaultInput,
       DefaultButton
     },
+
     data: function () {
       return {
         pickedVerb: [],
@@ -95,6 +98,7 @@
           this.verbs.length )];
         console.dir(this.pickedVerb); //shhhhh
       },
+
       submitVerbs() {
         if (this.pickedVerb[1] !== this.infinitiveInputValue) {
           this.isVerb1Incorrect = true;
@@ -127,14 +131,17 @@
         this.resetInputs();
         this.defaultInput_1.focus();
       },
+
       resetInputs() {
         this.infinitiveInputValue = this.pastSimpleInputValue =
           this.pastParticipleInputValue = "";
       },
+
       defeat() {
         this.$emit("update:score", this.score);
         this.$router.push("ScoreView");
       },
+
       createTippy(target, verb, placement) {
         tippy(target, {
           content: verb,
@@ -144,12 +151,14 @@
         target._tippy.show();
       }
     },
+
     created() {
       this.score = 0;
       this.$emit("update:score", this.score);
 
       this.pickRandomVerb();
     },
+
     mounted() {
       tippy.setDefaults({
         trigger: 'mouseenter',

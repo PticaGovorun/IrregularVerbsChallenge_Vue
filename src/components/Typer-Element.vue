@@ -11,6 +11,7 @@
 <script>
   export default {
     name: "Typer-Element",
+
     props: {
       propText: String,
       textForTyping: {
@@ -18,6 +19,7 @@
         default: "Error: text for typing was not received"
       }
     },
+
     data: function () {
       return{
         text: this.propText,
@@ -25,6 +27,7 @@
         untypingSpeed: 70
       }
     },
+
     methods: {
       untypeThenType() {
         let text = this.text;
@@ -38,6 +41,7 @@
           this.text = text.slice(0, thisTextLength--);
         }, this.untypingSpeed);
       },
+
       untype() {
         let text = this.text;
         let thisTextLength = this.text.length;
@@ -47,6 +51,7 @@
           this.text = text.slice(0, thisTextLength--);
         }, this.untypingSpeed);
       },
+
       type(text) {
         let textLength = text.length;
         let index = 0;
@@ -58,11 +63,13 @@
       },
 
     },
+
     watch: {
       textForTyping: function() {
         this.untypeThenType();
       }
     },
+
     mounted: function() {
       // setTimeout(this.type, 1500, this.textForTyping);
       this.untypeThenType();
