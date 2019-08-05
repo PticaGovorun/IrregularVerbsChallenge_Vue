@@ -61,10 +61,6 @@
         required: true,
         default:
           [["0","null","null","null","Error: the prop-verbs was not received from the parent"]]
-      },
-      score: {
-        type: Number,
-        required: true
       }
     },
     components:{
@@ -84,7 +80,9 @@
 
         isVerb1Incorrect: false,
         isVerb2Incorrect: false,
-        isVerb3Incorrect: false
+        isVerb3Incorrect: false,
+
+        score: Number
       }
     },
     methods: {
