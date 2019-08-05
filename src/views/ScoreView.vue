@@ -107,13 +107,13 @@
         }
 
         if (this.score === 0) {
-          this.createTippy(this.scoreDOM,
+          this.createAndShowTippy(this.scoreDOM,
             'Score is zero. Come on, is that all you got? ;)', 'top');
           return;
         }
 
         if (this.userName.trim() === "") {
-          this.createTippy(this.userNameDOM,
+          this.createAndShowTippy(this.userNameDOM,
             'Name field is empty. What is your name?', 'top');
           return;
         }
@@ -137,7 +137,7 @@
         this.isScoreAndNameSubmitted = true;
       },
 
-      createTippy(target, content, placement) {
+      createAndShowTippy(target, content, placement) {
         tippy(target, {
           content: content,
           placement: placement
