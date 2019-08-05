@@ -82,7 +82,11 @@
         isVerb2Incorrect: false,
         isVerb3Incorrect: false,
 
-        score: Number
+        score: Number,
+
+        defaultInput_1: null,
+        defaultInput_2: null,
+        defaultInput_3: null
       }
     },
     methods: {
@@ -96,21 +100,21 @@
           this.isVerb1Incorrect = true;
           this.isDefeated = true;
 
-          this.createTippy('#Default-Input-1', this.pickedVerb[1], 'left');
+          this.createTippy(this.defaultInput_1, this.pickedVerb[1], 'left');
         }
 
         if (this.pickedVerb[2] !== this.pastSimpleInputValue) {
           this.isVerb2Incorrect = true;
           this.isDefeated = true;
 
-          this.createTippy('#Default-Input-2', this.pickedVerb[2], 'top-end');
+          this.createTippy(this.defaultInput_2, this.pickedVerb[2], 'top-end');
         }
 
         if (this.pickedVerb[3] !== this.pastParticipleInputValue) {
           this.isVerb3Incorrect = true;
           this.isDefeated = true;
 
-          this.createTippy('#Default-Input-3', this.pickedVerb[3], 'right');
+          this.createTippy(this.defaultInput_3, this.pickedVerb[3], 'right');
         }
 
         if (this.isDefeated) {
@@ -130,9 +134,7 @@
         this.$emit("update:score", this.score);
         this.$router.push("ScoreView");
       },
-      createTippy(cssSelector, verb, placement) {
-        let target = document.querySelector(cssSelector);
-
+      createTippy(target, verb, placement) {
         tippy(target, {
           content: verb,
           placement: placement
@@ -153,11 +155,12 @@
         arrow: true,
         interactive: true,
         theme: 'light-border',
-        ignoreAttributes: true,
-        popperOptions: {
-
-        }
+        ignoreAttributes: true
       });
+
+      this.defaultInput_1 = document.getElementById('Default-Input-1');
+      this.defaultInput_2 = document.getElementById('Default-Input-2');
+      this.defaultInput_3 = document.getElementById('Default-Input-3');
     }
   }
 </script>
