@@ -2,13 +2,19 @@
   <div id="container">
     <p id="score_p">{{ score }}</p>
     <form>
-      <Default-Input class="m-3" placeholder="Your Name" v-model="userName"/>
-      <Default-Button class="m-3" value="Submit"
+      <Default-Input class="m-3"
+                     placeholder="Your Name"
+                     v-model="userName"/>
+      <Default-Button class="m-3"
+                      value="Submit"
                       @click.native="submitNameAndScore"/>
     </form>
+
     <Default-Table :bodyContent="scoreTable"/>
-    <router-link
-        to="/GameField"><Default-Button class="m-3" value="Back"/></router-link>
+
+    <router-link to="/GameField">
+      <Default-Button class="m-3" value="Back"/>
+    </router-link>
   </div>
 </template>
 
@@ -24,7 +30,7 @@
       return {
         scoreTable: null,
         userName: "",
-        isSubmitted: false
+        isScoreAndNameSubmitted: false
       }
     },
 
@@ -88,7 +94,7 @@
       },
 
       async submitNameAndScore() {
-        if (this.isSubmitted) {
+        if (this.isScoreAndNameSubmitted) {
           alert('You have already submitted your record. Press "Back" and play again.');
           return;
         }
@@ -119,9 +125,10 @@
         this.scoreTable = this.formatDates(this.scoreTable.slice());
 
         this.userName = '';
-        this.isSubmitted = true;
+        this.isScoreAndNameSubmitted = true;
       }
     },
+
     created() {
       this.serveScoreTable();
     }

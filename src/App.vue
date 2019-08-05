@@ -1,12 +1,11 @@
 <template>
   <div id="app">
-<!--    <div id="nav">-->
-<!--      <router-link to="/welcome">Welcome</router-link> |-->
-<!--      <router-link to="/gameField">Game Field</router-link>-->
-<!--    </div>-->
-<!--    <router-view/>-->
-    <router-view v-if="isVerbsFetched" :verbs="verbs" :score.sync="score"/>
-    <div v-if="isVerbsFetchError" id="fetch-error_div">
+    <router-view v-if="isVerbsFetched"
+                 :verbs="verbs"
+                 :score.sync="score"
+                 />
+
+    <div id="fetch-error-container" v-if="isVerbsFetchError">
       <p id="sad-smile">(-_-)</p>
       <h2 id="fetch-error_h2">
         Error: could not fetch irregular verbs, come back later...
@@ -18,6 +17,7 @@
 <script>
   export default {
     name: "App",
+
     data: function () {
       return {
         verbs: null,
@@ -26,11 +26,13 @@
         score: 0
       }
     },
+
     created() {
       this.fetchVerbs()
         .then(() => this.isVerbsFetched = true)
         .catch(e => {this.isVerbsFetchError = true; console.error(e);});
     },
+
     methods: {
       async fetchVerbs() {
         let response = await fetch("verbs100array.json");
@@ -49,7 +51,7 @@
     overflow: hidden;
   }
 
-  #fetch-error_div {
+  #fetch-error-container {
     text-align: center;
   }
 

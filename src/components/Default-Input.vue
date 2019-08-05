@@ -1,7 +1,6 @@
 <template>
   <input
     type="text"
-    :placeholder="placeholder"
     :value="value"
     @input="$emit('input', $event.target.value)"
   />
@@ -10,8 +9,8 @@
 <script>
   export default {
     name: "Verb-Input",
+
     props: {
-      placeholder: String,
       value: String
     }
   };
