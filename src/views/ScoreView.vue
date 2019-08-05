@@ -166,7 +166,8 @@
 
     watch: {
       userName: function () {
-        this.userNameDOM._tippy.destroy();
+        if (this.userNameDOM._tippy)
+          this.userNameDOM._tippy.destroy();
       }
     }
   }
