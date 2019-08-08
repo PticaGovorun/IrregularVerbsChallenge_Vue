@@ -23,6 +23,11 @@ export default new Router({
       path: '/scoreView',
       name: 'ScoreView',
       component: () => import('./views/ScoreView.vue')
+    },
+    {
+      path: '/learning-mode',
+      name: 'learningMode',
+      component: () => import('./views/LearningModeView.vue')
     }
   ]
 })

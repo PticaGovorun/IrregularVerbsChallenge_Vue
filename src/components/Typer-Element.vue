@@ -47,7 +47,10 @@
         let thisTextLength = this.text.length;
 
         let timerID = setInterval(() => {
-          if (thisTextLength === 0) clearInterval(timerID);
+          if (thisTextLength === 0) {
+            clearInterval(timerID);
+            this.$emit('TypingIsFinished');
+          }
           this.text = text.slice(0, thisTextLength--);
         }, this.untypingSpeed);
       },
@@ -57,7 +60,10 @@
         let index = 0;
 
         let timerID = setInterval(() => {
-          if (this.text.length === textLength) clearInterval(timerID);
+          if (this.text.length === textLength) {
+            clearInterval(timerID);
+            this.$emit('TypingIsFinished');
+          }
           this.text = text.slice(0, index++);
         }, this.typingSpeed);
       },

@@ -3,8 +3,15 @@
     <p>Welcome to</p>
     <h1>Irregular Verbs Challenge</h1>
     <p>What to do? &#8594; enter three forms of verbs as many as you can.</p>
+
     <router-link to="/gameField">
-      <Default-Button value="Bring it on!"/>
+      <Default-Button value="Competitive mode"/>
+    </router-link>
+
+    <p style='margin: 7px'>or</p>
+
+    <router-link to="/learning-mode">
+      <Default-Button value="Learning mode"/>
     </router-link>
   </div>
 </template>

@@ -14,7 +14,13 @@
     <Default-Table :bodyContent="scoreTable"/>
 
     <router-link to="/GameField">
-      <Default-Button class="m-3" value="Back"/>
+      <Default-Button class="m-3" value="Compete again"/>
+    </router-link>
+
+    <p style='margin: 7px'>or</p>
+
+    <router-link to="/learning-mode">
+      <Default-Button value="Learn verbs"/>
     </router-link>
   </div>
 </template>
