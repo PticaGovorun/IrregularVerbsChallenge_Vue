@@ -12,7 +12,7 @@ export default new Router({
       component: Welcome
     },
     {
-      path: '/gameField',
+      path: '/game-field',
       name: 'gameField',
       // route level code-splitting
       // this generates a separate chunk (gameField.[hash].js) for this route
@@ -20,7 +20,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "gameField" */ './views/GameField.vue')
     },
     {
-      path: '/scoreView',
+      path: '/score-view',
       name: 'ScoreView',
       component: () => import('./views/ScoreView.vue')
     },

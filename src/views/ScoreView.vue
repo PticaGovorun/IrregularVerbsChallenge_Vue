@@ -13,7 +13,7 @@
 
     <Default-Table :bodyContent="scoreTable"/>
 
-    <router-link to="/GameField">
+    <router-link to="/game-field">
       <Default-Button class="m-3" value="Compete again"/>
     </router-link>
 

@@ -4,7 +4,7 @@
     <h1>Irregular Verbs Challenge</h1>
     <p>What to do? &#8594; enter three forms of verbs as many as you can.</p>
 
-    <router-link to="/gameField">
+    <router-link to="/game-field">
       <Default-Button value="Competitive mode"/>
     </router-link>
 

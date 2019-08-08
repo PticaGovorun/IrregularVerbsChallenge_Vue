@@ -135,7 +135,7 @@
 
       defeat() {
         this.$emit("update:score", this.score);
-        this.$router.push("ScoreView");
+        this.$router.push("/score-view");
       },
 
       createAndShowTippy(target, verb, placement) {
