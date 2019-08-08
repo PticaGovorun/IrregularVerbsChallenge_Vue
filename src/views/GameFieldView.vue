@@ -171,9 +171,9 @@
     },
 
     beforeDestroy() {
-      this.defaultInput_1._tippy.destroy();
-      this.defaultInput_2._tippy.destroy();
-      this.defaultInput_3._tippy.destroy();
+      if (this.defaultInput_1._tippy) this.defaultInput_1._tippy.destroy();
+      if (this.defaultInput_2._tippy) this.defaultInput_2._tippy.destroy();
+      if (this.defaultInput_2._tippy) this.defaultInput_3._tippy.destroy();
     }
   }
 </script>
