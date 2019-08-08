@@ -12,17 +12,22 @@ export default new Router({
       component: Welcome
     },
     {
-      path: '/gameField',
+      path: '/game-field',
       name: 'gameField',
       // route level code-splitting
       // this generates a separate chunk (gameField.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "gameField" */ './views/GameField.vue')
+      component: () => import(/* webpackChunkName: "gameField" */ './views/GameFieldView.vue')
     },
     {
-      path: '/scoreView',
+      path: '/score-view',
       name: 'ScoreView',
       component: () => import('./views/ScoreView.vue')
+    },
+    {
+      path: '/learning-mode',
+      name: 'learningMode',
+      component: () => import('./views/LearningModeView.vue')
     }
   ]
 })

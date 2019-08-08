@@ -4,7 +4,7 @@
     <Typer-Element propText="Okay, here we go!"
                    :textForTyping="pickedVerb[4]" />
     <form id="verbs_form" autocomplete="off">
-      <div>
+      <div id='verb-inputs_container'>
         <Default-Input id="Default-Input-1"
                        class="m-3"
                        :class="{ green_border: isDefeated && !isVerb1Incorrect,
@@ -85,11 +85,7 @@
         isVerb2Incorrect: false,
         isVerb3Incorrect: false,
 
-        score: Number,
-
-        defaultInput_1: null,
-        defaultInput_2: null,
-        defaultInput_3: null
+        score: Number
       }
     },
     methods: {
@@ -139,7 +135,7 @@
 
       defeat() {
         this.$emit("update:score", this.score);
-        this.$router.push("ScoreView");
+        this.$router.push("/score-view");
       },
 
       createAndShowTippy(target, verb, placement) {
@@ -161,16 +157,23 @@
 
     mounted() {
       tippy.setDefaults({
-        trigger: 'mouseenter',
+        trigger: 'manual',
         arrow: true,
         interactive: true,
         theme: 'light-border',
-        ignoreAttributes: true
+        ignoreAttributes: true,
+        hideOnClick: false
       });
 
       this.defaultInput_1 = document.getElementById('Default-Input-1');
       this.defaultInput_2 = document.getElementById('Default-Input-2');
       this.defaultInput_3 = document.getElementById('Default-Input-3');
+    },
+
+    beforeDestroy() {
+      if (this.defaultInput_1._tippy) this.defaultInput_1._tippy.destroy();
+      if (this.defaultInput_2._tippy) this.defaultInput_2._tippy.destroy();
+      if (this.defaultInput_3._tippy) this.defaultInput_3._tippy.destroy();
     }
   }
 </script>
@@ -183,7 +186,6 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-    margin: 0 100px 0 100px;
   }
 
   form {
@@ -191,6 +193,10 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+  }
+
+  #verb-inputs_container {
+    margin: 0 100px 0 100px;
   }
 
   #btns-container {
