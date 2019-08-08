@@ -118,10 +118,7 @@
           this.isDefeated = true;
         }
 
-        if (this.isDefeated) {
-          document.activeElement.blur();
-          return;
-        }
+        if (this.isDefeated) return;
 
         this.pickRandomVerb();
         this.resetInputs();
