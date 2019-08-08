@@ -168,6 +168,12 @@
       this.defaultInput_1 = document.getElementById('Default-Input-1');
       this.defaultInput_2 = document.getElementById('Default-Input-2');
       this.defaultInput_3 = document.getElementById('Default-Input-3');
+    },
+
+    beforeDestroy() {
+      this.defaultInput_1._tippy.destroy();
+      this.defaultInput_2._tippy.destroy();
+      this.defaultInput_3._tippy.destroy();
     }
   }
 </script>
