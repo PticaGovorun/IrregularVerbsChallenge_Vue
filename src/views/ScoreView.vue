@@ -14,7 +14,7 @@
     <Default-Table :bodyContent="scoreTable"/>
 
     <router-link to="/game-field">
-      <Default-Button class="m-3" value="Compete again"/>
+      <Default-Button class="m-3" value="Play again"/>
     </router-link>
 
     <p style='margin: 7px'>or</p>
