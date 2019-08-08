@@ -6,7 +6,7 @@
                    @TypingIsFinished='showAllTippy'
                    />
     <form id="verbs_form" autocomplete="off">
-      <div>
+      <div id='verb-inputs_container'>
         <Default-Input id="Default-Input-1"
                        class="m-3"
                        :class="{ green_border: isDefeated && !isVerb_1_Incorrect,
@@ -213,7 +213,6 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-    margin: 0 100px 0 100px;
   }
 
   form {
@@ -221,6 +220,10 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+  }
+
+  #verb-inputs_container {
+    margin: 0 100px 0 100px;
   }
 
   #btns-container {
