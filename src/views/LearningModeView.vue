@@ -227,7 +227,7 @@
   }
 
   #btns-container {
-    margin: 25px;
+    margin: 25px 0 25px 0;
   }
 
   .m-3 {
