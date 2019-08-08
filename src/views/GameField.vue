@@ -161,11 +161,12 @@
 
     mounted() {
       tippy.setDefaults({
-        trigger: 'mouseenter',
+        trigger: 'manual',
         arrow: true,
         interactive: true,
         theme: 'light-border',
-        ignoreAttributes: true
+        ignoreAttributes: true,
+        hideOnClick: false
       });
 
       this.defaultInput_1 = document.getElementById('Default-Input-1');
