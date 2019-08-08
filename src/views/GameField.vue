@@ -85,11 +85,7 @@
         isVerb2Incorrect: false,
         isVerb3Incorrect: false,
 
-        score: Number,
-
-        defaultInput_1: null,
-        defaultInput_2: null,
-        defaultInput_3: null
+        score: Number
       }
     },
     methods: {
