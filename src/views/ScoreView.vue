@@ -11,7 +11,7 @@
                       @click.native="submitNameAndScore"/>
     </form>
 
-    <Default-Table :bodyContent="scoreTable"/>
+    <Default-Table :bodyContent="scoreRecords"/>
 
     <router-link to="/game-field">
       <Default-Button class="m-3" value="Play again"/>
@@ -38,7 +38,8 @@
 
     data: function () {
       return {
-        scoreTable: null,
+        scoreRecords: null,
+
         userName: "",
         isScoreAndNameSubmitted: false,
 
@@ -73,11 +74,11 @@
         this.scoreTable = this.formatDates(this.scoreTable.slice());
       },
 
-      filterTableByName(scoreTable) {
+      filterTableByName(scoreRecords) {
         let filteredScoreTable = [];
         let names = {};
 
-        for (let row of scoreTable) {
+        for (let row of scoreRecords) {
           if (names.hasOwnProperty( row.name )) continue;
 
           filteredScoreTable.push( row );
@@ -87,7 +88,7 @@
         return filteredScoreTable;
       },
 
-      formatDates(scoreTable) {
+      formatDates(scoreRecords) {
         let date, day, monthIndex, year;
 
         let monthNames = [
@@ -97,7 +98,7 @@
           "Nov", "Dec"
         ];
 
-        for (let row of scoreTable) {
+        for (let row of scoreRecords) {
           date = new Date(row.date);
 
           day = date.getDate();
@@ -107,7 +108,7 @@
           row.date = `${day} ${monthNames[monthIndex]} ${year}`;
         }
 
-        return scoreTable;
+        return scoreRecords;
       },
 
       async submitNameAndScore() {
