@@ -43,8 +43,8 @@
         userName: "",
         isScoreAndNameSubmitted: false,
 
-        scoreDOM: null,
-        userNameDOM: null
+        score_DOM_element: null,
+        userName_DOM_element: null
       }
     },
 
@@ -118,13 +118,13 @@
         }
 
         if (this.score === 0) {
-          this.createAndShowTippy(this.scoreDOM,
+          this.createAndShowTippy(this.score_DOM_element,
             'Score is zero. Come on, is that all you got? ;)', 'top');
           return;
         }
 
         if (this.userName.trim() === "") {
-          this.createAndShowTippy(this.userNameDOM,
+          this.createAndShowTippy(this.userName_DOM_element,
             'Name field is empty. What is your name?', 'top');
           return;
         }
@@ -171,14 +171,14 @@
         ignoreAttributes: true
       });
 
-      this.scoreDOM = document.getElementById('score_p');
-      this.userNameDOM = document.getElementById('user-name');
+      this.score_DOM_element = document.getElementById('score_p');
+      this.userName_DOM_element = document.getElementById('user-name');
     },
 
     watch: {
       userName: function () {
-        if (this.userNameDOM._tippy)
-          this.userNameDOM._tippy.destroy();
+        if (this.userName_DOM_element._tippy)
+          this.userName_DOM_element._tippy.destroy();
       }
     }
   }
