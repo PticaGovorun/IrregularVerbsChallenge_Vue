@@ -51,6 +51,10 @@
       score: {
         type: Number,
         required: true
+      },
+      database: {
+        type: Object,
+        required: true
       }
     },
 
