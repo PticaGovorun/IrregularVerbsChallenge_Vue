@@ -108,7 +108,7 @@
 
       async submitNameAndScore() {
         if (this.isScoreAndNameSubmitted) {
-          alert('You have already submitted your record. Press "Back" and play again.');
+          alert('You have already submitted your score.');
           return;
         }
 
