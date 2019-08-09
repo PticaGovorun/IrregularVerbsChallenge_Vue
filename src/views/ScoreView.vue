@@ -66,12 +66,27 @@
     },
 
     methods: {
-      async serveScoreTable() {
-        let response = await fetch("json_score_tabl_db_get.php");
-        this.scoreTable = await response.json(); // returns Array
+      serveScoreRecords() {
+        let scoreRecords = [];
 
-        this.scoreTable = this.filterTableByName(this.scoreTable.slice());
-        this.scoreTable = this.formatDates(this.scoreTable.slice());
+        this.database.ref('scores').orderByChild('score').once("value")
+          .then(snapshot => {
+            // forEach() needed here because of the way JavaScript objects work,
+            // the ordering of data in the JavaScript object returned by val()
+            // is not guaranteed to match the ordering on the server nor the
+            // ordering of child_added events. That is where forEach() comes
+            // in handy. It guarantees the children of a DataSnapshot will be
+            // iterated in their query order.
+            snapshot.forEach(childSnapshot => {
+              scoreRecords.push(childSnapshot.val());
+            });
+          })
+          .then(() => {
+            scoreRecords.reverse();
+            scoreRecords = this.filterTableByName(scoreRecords.slice());
+            scoreRecords = this.formatDates(scoreRecords.slice());
+            this.scoreRecords = scoreRecords;
+          });
       },
 
       filterTableByName(scoreRecords) {
@@ -159,7 +174,7 @@
     },
 
     created() {
-      this.serveScoreTable();
+      this.serveScoreRecords();
     },
 
     mounted() {
