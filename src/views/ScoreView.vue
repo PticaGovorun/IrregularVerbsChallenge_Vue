@@ -5,10 +5,13 @@
       <Default-Input id='user-name'
                      class="m-3"
                      placeholder="Your Name"
-                     v-model="userName"/>
+                     v-model="userName"
+                     :readonly='isScoreAndNameSubmitted'
+                     />
       <Default-Button class="m-3"
                       value="Submit"
-                      @click.native="submitNameAndScore"/>
+                      @click.native="submitNameAndScore"
+                      />
     </form>
 
     <Default-Table :bodyContent="scoreRecords"/>
