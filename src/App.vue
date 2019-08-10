@@ -3,6 +3,7 @@
     <router-view v-if="isVerbsFetched"
                  :verbs="verbs"
                  :score.sync="score"
+                 :database='database'
                  />
 
     <div id="fetch-error-container" v-if="isVerbsFetchError">
@@ -15,6 +16,9 @@
 </template>
 
 <script>
+  import firebase from 'firebase/app';
+  import 'firebase/database';
+
   export default {
     name: "App",
 
@@ -31,6 +35,20 @@
       this.fetchVerbs()
         .then(() => this.isVerbsFetched = true)
         .catch(e => {this.isVerbsFetchError = true; console.error(e);});
+
+      let firebaseConfig = {
+        apiKey: "AIzaSyCnUTZ5FUBGGPib0otMMsHOYRuRd6HYTLw",
+        authDomain: "irregular-verbs-challeng-e61bd.firebaseapp.com",
+        databaseURL: "https://irregular-verbs-challeng-e61bd.firebaseio.com",
+        projectId: "irregular-verbs-challeng-e61bd",
+        storageBucket: "",
+        messagingSenderId: "26190093058",
+        appId: "1:26190093058:web:18575c004cfde7af"
+      };
+
+      if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+
+      this.database = firebase.database();
     },
 
     methods: {
