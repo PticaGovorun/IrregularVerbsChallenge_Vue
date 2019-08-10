@@ -144,22 +144,16 @@
           return;
         }
 
-        let nameAndScore = {
-          "name": this.userName,
-          "score": this.score
+        let scoreRecord = {
+          name: this.userName,
+          score: this.score,
+          date: Date.now()
         };
 
-        let response = await fetch("json_score_tabl_db_post.php", {
-          method: 'POST',
-          headers: {'Content-Type': "application/x-www-form-urlencoded"},
-          body: "dbParams_json=" + JSON.stringify(nameAndScore)
-        });
-        this.scoreTable = await response.json();
+        this.database.ref('scores').push(scoreRecord);
 
-        this.scoreTable = this.filterTableByName(this.scoreTable.slice());
-        this.scoreTable = this.formatDates(this.scoreTable.slice());
+        this.serveScoreRecords();
 
-        this.userName = '';
         this.isScoreAndNameSubmitted = true;
       },
 
