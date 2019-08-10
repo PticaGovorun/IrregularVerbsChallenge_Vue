@@ -14,7 +14,8 @@
                       />
     </form>
 
-    <Default-Table :bodyContent="scoreRecords"/>
+    <Default-Table :bodyContent="scoreRecords"
+                   :highlightedRow='lastRecordIndex'/>
 
     <router-link to="/game-field">
       <Default-Button class="m-3" value="Play again"/>
@@ -47,7 +48,9 @@
         isScoreAndNameSubmitted: false,
 
         score_DOM_element: null,
-        userName_DOM_element: null
+        userName_DOM_element: null,
+
+        lastRecordIndex: null
       }
     },
 
@@ -72,7 +75,7 @@
       serveScoreRecords() {
         let scoreRecords = [];
 
-        this.database.ref('scores').orderByChild('score').once("value")
+         return this.database.ref('scores').orderByChild('score').once("value")
           .then(snapshot => {
             // forEach() needed here because of the way JavaScript objects work,
             // the ordering of data in the JavaScript object returned by val()
@@ -129,7 +132,7 @@
         return scoreRecords;
       },
 
-      async submitNameAndScore() {
+      submitNameAndScore() {
         if (this.isScoreAndNameSubmitted) {
           alert('You have already submitted your score.');
           return;
@@ -147,17 +150,25 @@
           return;
         }
 
-        let scoreRecord = {
+        let newScoreRecord = {
           name: this.userName,
           score: this.score,
           date: Date.now()
         };
 
-        this.database.ref('scores').push(scoreRecord);
-
-        this.serveScoreRecords();
-
+        this.database.ref('scores').push(newScoreRecord);
         this.isScoreAndNameSubmitted = true;
+
+        this.serveScoreRecords()
+          .then(() => this.lastRecordIndex =
+            this.findLastRecordIndex(newScoreRecord));
+      },
+
+      findLastRecordIndex(newScoreRecord) {
+        for (let [index, record] of this.scoreRecords.entries()) {
+          if (record.name === newScoreRecord.name)
+            return index;
+        }
       },
 
       createAndShowTippy(target, content, placement) {

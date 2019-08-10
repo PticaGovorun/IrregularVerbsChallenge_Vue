@@ -9,7 +9,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(row, index) in bodyContent" :key="index">
+      <tr v-for="(row, index) in bodyContent"
+          :key="index"
+          :class='{highlight: index === highlightedRow}'
+          >
         <td>{{ index + 1 }}</td>
         <td>{{ row.name }}</td>
         <td>{{ row.score }}</td>
@@ -24,7 +27,8 @@
     name: "Default-Table",
 
     props: {
-      bodyContent: Array
+      bodyContent: Array,
+      highlightedRow: Number
     }
   }
 </script>
@@ -35,13 +39,17 @@
     margin: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-left: 5px;
     display: block;
     overflow-y: auto;
     max-height: 244px;
+    border-collapse: collapse;
   }
 
-  td, th {
-    padding-right: 10px;
+  td {
+    padding: 4px 10px 4px 10px;
+  }
+
+  .highlight {
+    background-color: #eed9a3;
   }
 </style>
