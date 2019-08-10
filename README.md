@@ -6,4 +6,4 @@ The point of Irregular Verbs Challenge is to challenge yourself and compete with
 
 Development in the process/Разработка в процессе.
 
-> You can try it on http://irregularverbschallenge.rf.gd/
+> You can try it on https://irregular-verbs-challenge.com/
