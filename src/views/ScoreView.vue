@@ -5,13 +5,17 @@
       <Default-Input id='user-name'
                      class="m-3"
                      placeholder="Your Name"
-                     v-model="userName"/>
+                     v-model="userName"
+                     :readonly='isScoreAndNameSubmitted'
+                     />
       <Default-Button class="m-3"
                       value="Submit"
-                      @click.native="submitNameAndScore"/>
+                      @click.native="submitNameAndScore"
+                      />
     </form>
 
-    <Default-Table :bodyContent="scoreTable"/>
+    <Default-Table :bodyContent="scoreRecords"
+                   :highlightedRow='lastRecordIndex'/>
 
     <router-link to="/game-field">
       <Default-Button class="m-3" value="Play again"/>
@@ -38,18 +42,25 @@
 
     data: function () {
       return {
-        scoreTable: null,
+        scoreRecords: null,
+
         userName: "",
         isScoreAndNameSubmitted: false,
 
-        scoreDOM: null,
-        userNameDOM: null
+        score_DOM_element: null,
+        userName_DOM_element: null,
+
+        lastRecordIndex: null
       }
     },
 
     props: {
       score: {
         type: Number,
+        required: true
+      },
+      database: {
+        type: Object,
         required: true
       }
     },
@@ -61,19 +72,34 @@
     },
 
     methods: {
-      async serveScoreTable() {
-        let response = await fetch("json_score_tabl_db_get.php");
-        this.scoreTable = await response.json(); // returns Array
+      serveScoreRecords() {
+        let scoreRecords = [];
 
-        this.scoreTable = this.filterTableByName(this.scoreTable.slice());
-        this.scoreTable = this.formatDates(this.scoreTable.slice());
+         return this.database.ref('scores').orderByChild('score').once("value")
+          .then(snapshot => {
+            // forEach() needed here because of the way JavaScript objects work,
+            // the ordering of data in the JavaScript object returned by val()
+            // is not guaranteed to match the ordering on the server nor the
+            // ordering of child_added events. That is where forEach() comes
+            // in handy. It guarantees the children of a DataSnapshot will be
+            // iterated in their query order.
+            snapshot.forEach(childSnapshot => {
+              scoreRecords.push(childSnapshot.val());
+            });
+          })
+          .then(() => {
+            scoreRecords.reverse();
+            scoreRecords = this.filterTableByName(scoreRecords.slice());
+            scoreRecords = this.formatDates(scoreRecords.slice());
+            this.scoreRecords = scoreRecords;
+          });
       },
 
-      filterTableByName(scoreTable) {
+      filterTableByName(scoreRecords) {
         let filteredScoreTable = [];
         let names = {};
 
-        for (let row of scoreTable) {
+        for (let row of scoreRecords) {
           if (names.hasOwnProperty( row.name )) continue;
 
           filteredScoreTable.push( row );
@@ -83,7 +109,7 @@
         return filteredScoreTable;
       },
 
-      formatDates(scoreTable) {
+      formatDates(scoreRecords) {
         let date, day, monthIndex, year;
 
         let monthNames = [
@@ -93,7 +119,7 @@
           "Nov", "Dec"
         ];
 
-        for (let row of scoreTable) {
+        for (let row of scoreRecords) {
           date = new Date(row.date);
 
           day = date.getDate();
@@ -103,44 +129,46 @@
           row.date = `${day} ${monthNames[monthIndex]} ${year}`;
         }
 
-        return scoreTable;
+        return scoreRecords;
       },
 
-      async submitNameAndScore() {
+      submitNameAndScore() {
         if (this.isScoreAndNameSubmitted) {
-          alert('You have already submitted your record. Press "Back" and play again.');
+          alert('You have already submitted your score.');
           return;
         }
 
         if (this.score === 0) {
-          this.createAndShowTippy(this.scoreDOM,
+          this.createAndShowTippy(this.score_DOM_element,
             'Score is zero. Come on, is that all you got? ;)', 'top');
           return;
         }
 
         if (this.userName.trim() === "") {
-          this.createAndShowTippy(this.userNameDOM,
+          this.createAndShowTippy(this.userName_DOM_element,
             'Name field is empty. What is your name?', 'top');
           return;
         }
 
-        let nameAndScore = {
-          "name": this.userName,
-          "score": this.score
+        let newScoreRecord = {
+          name: this.userName,
+          score: this.score,
+          date: Date.now()
         };
 
-        let response = await fetch("json_score_tabl_db_post.php", {
-          method: 'POST',
-          headers: {'Content-Type': "application/x-www-form-urlencoded"},
-          body: "dbParams_json=" + JSON.stringify(nameAndScore)
-        });
-        this.scoreTable = await response.json();
-
-        this.scoreTable = this.filterTableByName(this.scoreTable.slice());
-        this.scoreTable = this.formatDates(this.scoreTable.slice());
-
-        this.userName = '';
+        this.database.ref('scores').push(newScoreRecord);
         this.isScoreAndNameSubmitted = true;
+
+        this.serveScoreRecords()
+          .then(() => this.lastRecordIndex =
+            this.findLastRecordIndex(newScoreRecord));
+      },
+
+      findLastRecordIndex(newScoreRecord) {
+        for (let [index, record] of this.scoreRecords.entries()) {
+          if (record.name === newScoreRecord.name)
+            return index;
+        }
       },
 
       createAndShowTippy(target, content, placement) {
@@ -154,7 +182,7 @@
     },
 
     created() {
-      this.serveScoreTable();
+      this.serveScoreRecords();
     },
 
     mounted() {
@@ -166,14 +194,14 @@
         ignoreAttributes: true
       });
 
-      this.scoreDOM = document.getElementById('score_p');
-      this.userNameDOM = document.getElementById('user-name');
+      this.score_DOM_element = document.getElementById('score_p');
+      this.userName_DOM_element = document.getElementById('user-name');
     },
 
     watch: {
       userName: function () {
-        if (this.userNameDOM._tippy)
-          this.userNameDOM._tippy.destroy();
+        if (this.userName_DOM_element._tippy)
+          this.userName_DOM_element._tippy.destroy();
       }
     }
   }
