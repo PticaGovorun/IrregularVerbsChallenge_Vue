@@ -35,15 +35,16 @@
         ></v-text-field>
       </div>
       <div id="btns-container" class='mt-3'>
-        <Default-Button v-if="!isDefeated"
-                        value="Submit"
-                        type="submit"
-                        @click.native.prevent="submitVerbs"
-                        />
-        <Default-Button v-if="isDefeated"
-                        value="Score view"
-                        @click.native="defeat"
-                        />
+        <v-btn v-if="!isDefeated"
+               type="submit"
+               @click.native.prevent="submitVerbs"
+               outlined
+        >Submit</v-btn>
+        <v-btn v-if="isDefeated"
+               type="submit"
+               @click.native="defeat"
+               outlined
+        >Score view</v-btn>
       </div>
     </form>
   </div>
@@ -51,7 +52,6 @@
 
 <script>
   import TyperElement from "@/components/Typer-Element.vue";
-  import DefaultButton from "@/components/Default-Button.vue";
 
   export default {
     name: "GameField",
@@ -66,8 +66,7 @@
     },
 
     components:{
-      TyperElement,
-      DefaultButton
+      TyperElement
     },
 
     data: function () {
