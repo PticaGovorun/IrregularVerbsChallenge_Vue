@@ -1,37 +1,34 @@
 <template>
   <div id="container">
-    <p id="score_p">{{ score }}</p>
-    <form>
-      <Default-Input id='user-name'
-                     class="m-3"
-                     placeholder="Your Name"
-                     v-model="userName"
-                     :readonly='isScoreAndNameSubmitted'
-                     />
-      <Default-Button class="m-3"
-                      value="Submit"
-                      @click.native="submitNameAndScore"
-                      />
-    </form>
+    <p id="score_p" class='display-2'>{{ score }}</p>
+    <v-form ref='form' class='d-flex'>
+      <v-text-field id='user-name'
+                    class="m-3"
+                    label="Your Name"
+                    v-model="userName.value"
+                    :readonly='isScoreAndNameSubmitted'
+                    :rules='userName.rules'
+                    required
+                    ></v-text-field>
+      <div class='d-flex ml-3'>
+        <v-btn outlined
+               type='submit'
+               @click.native="submitNameAndScore"
+               class='ma-auto'
+               >Submit</v-btn>
+      </div>
+    </v-form>
 
     <Default-Table :bodyContent="scoreRecords"
                    :highlightedRow='lastRecordIndex'/>
 
-    <router-link to="/game-field">
-      <Default-Button class="m-3" value="Play again"/>
-    </router-link>
-
-    <p style='margin: 7px'>or</p>
-
-    <router-link to="/learning-mode">
-      <Default-Button value="Learn verbs"/>
-    </router-link>
+    <v-btn class='mt-3' outlined to='/game-field'>Play again</v-btn>
+    <p class='ma-1'>or</p>
+    <v-btn outlined to='/learning-mode'>Learn verbs</v-btn>
   </div>
 </template>
 
 <script>
-  import DefaultInput from "@/components/Default-Input.vue";
-  import DefaultButton from "@/components/Default-Button.vue";
   import DefaultTable from "@/components/Default-Table.vue";
 
   import tippy from 'tippy.js';
@@ -44,11 +41,14 @@
       return {
         scoreRecords: null,
 
-        userName: "",
+        userName: {
+          value: '',
+          rules: [val => (val || '').length > 0 || 'What is your name?']
+        },
+
         isScoreAndNameSubmitted: false,
 
         score_DOM_element: null,
-        userName_DOM_element: null,
 
         lastRecordIndex: null
       }
@@ -66,8 +66,6 @@
     },
 
     components: {
-      DefaultInput,
-      DefaultButton,
       DefaultTable
     },
 
@@ -144,11 +142,7 @@
           return;
         }
 
-        if (this.userName.trim() === "") {
-          this.createAndShowTippy(this.userName_DOM_element,
-            'Name field is empty. What is your name?', 'top');
-          return;
-        }
+        if (!this.$refs.form.validate()) return;
 
         let newScoreRecord = {
           name: this.userName,
@@ -195,14 +189,6 @@
       });
 
       this.score_DOM_element = document.getElementById('score_p');
-      this.userName_DOM_element = document.getElementById('user-name');
-    },
-
-    watch: {
-      userName: function () {
-        if (this.userName_DOM_element._tippy)
-          this.userName_DOM_element._tippy.destroy();
-      }
     }
   }
 </script>
@@ -216,18 +202,5 @@
     flex-direction: column;
     text-align: center;
     margin: 0 40px 0 40px;
-  }
-
-  #score_p {
-    font-size: 250%;
-    margin: 10px;
-  }
-
-  form {
-    display: flex;
-  }
-
-  .m-3 {
-    margin: 3px;
   }
 </style>
