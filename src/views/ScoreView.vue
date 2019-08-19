@@ -3,20 +3,19 @@
     <p id="score_p" class='display-2'>{{ score }}</p>
     <v-form ref='form' class='d-flex'>
       <v-text-field id='user-name'
-                    class="m-3"
                     label="Your Name"
                     v-model="userName.value"
                     :readonly='isScoreAndNameSubmitted'
                     :rules='userName.rules'
                     required
+                    outlined
                     ></v-text-field>
-      <div class='d-flex ml-3'>
-        <v-btn outlined
-               type='submit'
-               @click.native="submitNameAndScore"
-               class='ma-auto'
-               >Submit</v-btn>
-      </div>
+      <v-btn outlined
+             type='submit'
+             @click.native="submitNameAndScore"
+             class='ml-3'
+             height='56'
+             >Submit</v-btn>
     </v-form>
 
     <Default-Table :bodyContent="scoreRecords"
