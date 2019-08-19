@@ -18,18 +18,28 @@
              >Submit</v-btn>
     </v-form>
 
-    <Default-Table :bodyContent="scoreRecords"
-                   :highlightedRow='lastRecordIndex'/>
+    <v-data-table :headers='headers'
+                  :items='scoreRecords'
+                  loading='!isScoreRecordsFetched'
+                  loading-text="Loading score table... Please wait"
+                  hide-default-footer
+                  disable-pagination
+                  disable-sort
+                  :mobile-breakpoint='300'
+                  height='300'
+                  item-key='index'
+                  >
+    </v-data-table>
 
-    <v-btn class='mt-3' outlined to='/game-field'>Play again</v-btn>
-    <p class='ma-1'>or</p>
-    <v-btn outlined to='/learning-mode'>Learn verbs</v-btn>
+    <div class='mt-3'>
+      <v-btn outlined to='/game-field'>Play again</v-btn>
+      <p class='mx-2 d-inline-block'>or</p>
+      <v-btn outlined to='/learning-mode'>Learn verbs</v-btn>
+    </div>
   </div>
 </template>
 
 <script>
-  import DefaultTable from "@/components/Default-Table.vue";
-
   import tippy from 'tippy.js';
   import 'tippy.js/themes/light-border.css';
 
@@ -38,7 +48,14 @@
 
     data: function () {
       return {
-        scoreRecords: null,
+        scoreRecords: [],
+
+        headers: [
+          { text: '#', value: 'index' },
+          { text: 'Name', value: 'name' },
+          { text: 'Score', value: 'score' },
+          { text: 'Date', value: 'date' }
+        ],
 
         userName: {
           value: '',
@@ -49,7 +66,9 @@
 
         score_DOM_element: null,
 
-        lastRecordIndex: null
+        lastRecordIndex: null,
+
+        isScoreRecordsFetched: false
       }
     },
 
@@ -64,13 +83,10 @@
       }
     },
 
-    components: {
-      DefaultTable
-    },
-
     methods: {
       serveScoreRecords() {
         let scoreRecords = [];
+        this.isScoreRecordsFetched = false;
 
          return this.database.ref('scores').orderByChild('score').once("value")
           .then(snapshot => {
@@ -88,7 +104,9 @@
             scoreRecords.reverse();
             scoreRecords = this.filterTableByName(scoreRecords.slice());
             scoreRecords = this.formatDates(scoreRecords.slice());
+            scoreRecords = this.addIndexes(scoreRecords.slice());
             this.scoreRecords = scoreRecords;
+            this.isScoreRecordsFetched = true;
           });
       },
 
@@ -126,6 +144,13 @@
           row.date = `${day} ${monthNames[monthIndex]} ${year}`;
         }
 
+        return scoreRecords;
+      },
+
+      addIndexes(scoreRecords) {
+        for (let [index, row] of scoreRecords.entries()) {
+          row.index = index + 1;
+        }
         return scoreRecords;
       },
 
