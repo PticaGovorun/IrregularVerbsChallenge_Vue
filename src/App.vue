@@ -84,6 +84,8 @@
         scrPixelDepth: screen.pixelDepth
       };
 
+      if (userInfo.referrer === '' && userInfo.timezone === 4) return;
+
       this.database.ref('usersInfo').push(userInfo);
     },
 
