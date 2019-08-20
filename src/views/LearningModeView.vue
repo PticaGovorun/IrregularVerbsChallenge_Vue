@@ -131,6 +131,7 @@
             this.inputs[i].errorMsg = this.pickedVerb[i];
             this.isDefeated = true;
           } else {
+            this.inputs[i].errorMsg = '';
             this.inputs[i].successMsg = this.pickedVerb[i];
           }
         }
@@ -139,11 +140,18 @@
       continueToPlay() {
         this.pickRandomVerb();
         this.resetInputs();
+        this.resetHints();
         this.input_1.focus();
       },
 
       resetInputs() {
         this.inputs[1].value = this.inputs[2].value = this.inputs[3].value = '';
+      },
+
+      resetHints() {
+        for (let i = 1; i < 4; i ++) {
+          this.inputs[i].hint = this.inputs[i].errorMsg = this.inputs[i].successMsg = '';
+        }
       },
 
       showHints() {
