@@ -26,7 +26,7 @@
                   disable-pagination
                   disable-sort
                   :mobile-breakpoint='300'
-                  height='300'
+                  height='220'
                   item-key='index'
                   >
     </v-data-table>
