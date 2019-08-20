@@ -42,7 +42,7 @@
         >Submit</v-btn>
         <v-btn v-if="isDefeated"
                type="submit"
-               @click.native="defeat"
+               to='/score-view'
                outlined
         >Score view</v-btn>
       </div>
@@ -109,7 +109,11 @@
       submitVerbs() {
         this.checkEachVerb();
 
-        if (this.isDefeated) { document.activeElement.blur(); return; }
+        if (this.isDefeated) {
+          this.$emit("update:score", this.score);
+          document.activeElement.blur();
+          return;
+        }
 
         this.continueToPlay();
       },
@@ -134,11 +138,6 @@
 
       resetInputs() {
         this.inputs[1].value = this.inputs[2].value = this.inputs[3].value = '';
-      },
-
-      defeat() {
-        this.$emit("update:score", this.score);
-        this.$router.push("/score-view");
       }
     },
 
