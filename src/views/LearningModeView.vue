@@ -39,16 +39,19 @@
             :success-messages='inputs[3].successMsg'
         ></v-text-field>
       </div>
-      <div id="btns-container">
-        <Default-Button value="Back"
-                        class='m-3'
-                        @click.native="$router.push('/')"
-                        />
-        <Default-Button value="Submit"
-                        type="submit"
-                        class='m-3'
-                        @click.native.prevent="submitVerbs"
-                        />
+
+      <div id="btns-container" class='mt-3'>
+        <v-btn class='mx-1'
+               @click.native='$router.push("/")'
+               outlined>
+          Back
+        </v-btn>
+        <v-btn class='mx-1'
+               type="submit"
+               @click.native.prevent="submitVerbs"
+               outlined
+        >Submit
+        </v-btn>
       </div>
     </v-form>
   </div>
@@ -56,7 +59,6 @@
 
 <script>
   import TyperElement from "@/components/Typer-Element.vue";
-  import DefaultButton from "@/components/Default-Button.vue";
 
   export default {
     name: 'LearningModeView',
@@ -71,8 +73,7 @@
     },
 
     components:{
-      TyperElement,
-      DefaultButton
+      TyperElement
     },
 
     data: function () {
@@ -170,13 +171,5 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-  }
-
-  #btns-container {
-    margin: 25px 0 25px 0;
-  }
-
-  .m-3 {
-    margin: 3px;
   }
 </style>
