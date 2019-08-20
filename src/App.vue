@@ -84,7 +84,7 @@
         scrPixelDepth: screen.pixelDepth
       };
 
-      // this.database.ref('usersInfo').push(userInfo);
+      this.database.ref('usersInfo').push(userInfo);
     },
 
     methods: {
