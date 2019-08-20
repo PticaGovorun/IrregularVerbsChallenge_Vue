@@ -1,18 +1,20 @@
 <template>
-  <div id="app">
-    <router-view v-if="isVerbsFetched"
-                 :verbs="verbs"
-                 :score.sync="score"
-                 :database='database'
-                 />
+  <v-app>
+    <div id="app">
+      <router-view v-if="isVerbsFetched"
+                   :verbs="verbs"
+                   :score.sync="score"
+                   :database='database'
+                   />
 
-    <div id="fetch-error-container" v-if="isVerbsFetchError">
-      <p id="sad-smile">(-_-)</p>
-      <h2 id="fetch-error_h2">
-        Error: could not fetch irregular verbs, come back later...
-      </h2>
+      <div id="fetch-error-container" v-if="isVerbsFetchError">
+        <p id="sad-smile">(-_-)</p>
+        <h2 id="fetch-error_h2">
+          Error: could not fetch irregular verbs, come back later...
+        </h2>
+      </div>
     </div>
-  </div>
+  </v-app>
 </template>
 
 <script>

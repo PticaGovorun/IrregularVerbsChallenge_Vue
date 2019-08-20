@@ -1,39 +1,45 @@
 <template>
   <div id="container">
-    <p id="score_p">{{ score }}</p>
-    <form>
-      <Default-Input id='user-name'
-                     class="m-3"
-                     placeholder="Your Name"
-                     v-model="userName"
-                     :readonly='isScoreAndNameSubmitted'
-                     />
-      <Default-Button class="m-3"
-                      value="Submit"
-                      @click.native="submitNameAndScore"
-                      />
-    </form>
+    <p id="score_p" class='display-2'>{{ score }}</p>
+    <v-form ref='form' class='d-flex'>
+      <v-text-field id='user-name'
+                    label="Your Name"
+                    v-model="userName.value"
+                    :readonly='isScoreAndNameSubmitted'
+                    :rules='userName.rules'
+                    required
+                    outlined
+                    ></v-text-field>
+      <v-btn outlined
+             type='submit'
+             @click.native="submitNameAndScore"
+             class='ml-3'
+             height='56'
+             >Submit</v-btn>
+    </v-form>
 
-    <Default-Table :bodyContent="scoreRecords"
-                   :highlightedRow='lastRecordIndex'/>
+    <v-data-table :headers='headers'
+                  :items='scoreRecords'
+                  loading='!isScoreRecordsFetched'
+                  loading-text="Loading score table... Please wait"
+                  hide-default-footer
+                  disable-pagination
+                  disable-sort
+                  :mobile-breakpoint='300'
+                  height='220'
+                  item-key='index'
+                  >
+    </v-data-table>
 
-    <router-link to="/game-field">
-      <Default-Button class="m-3" value="Play again"/>
-    </router-link>
-
-    <p style='margin: 7px'>or</p>
-
-    <router-link to="/learning-mode">
-      <Default-Button value="Learn verbs"/>
-    </router-link>
+    <div class='mt-3'>
+      <v-btn outlined to='/game-field'>Play again</v-btn>
+      <p class='mx-2 d-inline-block'>or</p>
+      <v-btn outlined to='/learning-mode'>Learn verbs</v-btn>
+    </div>
   </div>
 </template>
 
 <script>
-  import DefaultInput from "@/components/Default-Input.vue";
-  import DefaultButton from "@/components/Default-Button.vue";
-  import DefaultTable from "@/components/Default-Table.vue";
-
   import tippy from 'tippy.js';
   import 'tippy.js/themes/light-border.css';
 
@@ -42,15 +48,27 @@
 
     data: function () {
       return {
-        scoreRecords: null,
+        scoreRecords: [],
 
-        userName: "",
+        headers: [
+          { text: '#', value: 'index' },
+          { text: 'Name', value: 'name' },
+          { text: 'Score', value: 'score' },
+          { text: 'Date', value: 'date' }
+        ],
+
+        userName: {
+          value: '',
+          rules: [val => (val || '').length > 0 || 'What is your name?']
+        },
+
         isScoreAndNameSubmitted: false,
 
         score_DOM_element: null,
-        userName_DOM_element: null,
 
-        lastRecordIndex: null
+        lastRecordIndex: null,
+
+        isScoreRecordsFetched: false
       }
     },
 
@@ -65,15 +83,10 @@
       }
     },
 
-    components: {
-      DefaultInput,
-      DefaultButton,
-      DefaultTable
-    },
-
     methods: {
       serveScoreRecords() {
         let scoreRecords = [];
+        this.isScoreRecordsFetched = false;
 
          return this.database.ref('scores').orderByChild('score').once("value")
           .then(snapshot => {
@@ -91,7 +104,9 @@
             scoreRecords.reverse();
             scoreRecords = this.filterTableByName(scoreRecords.slice());
             scoreRecords = this.formatDates(scoreRecords.slice());
+            scoreRecords = this.addIndexes(scoreRecords.slice());
             this.scoreRecords = scoreRecords;
+            this.isScoreRecordsFetched = true;
           });
       },
 
@@ -132,6 +147,13 @@
         return scoreRecords;
       },
 
+      addIndexes(scoreRecords) {
+        for (let [index, row] of scoreRecords.entries()) {
+          row.index = index + 1;
+        }
+        return scoreRecords;
+      },
+
       submitNameAndScore() {
         if (this.isScoreAndNameSubmitted) {
           alert('You have already submitted your score.');
@@ -144,11 +166,7 @@
           return;
         }
 
-        if (this.userName.trim() === "") {
-          this.createAndShowTippy(this.userName_DOM_element,
-            'Name field is empty. What is your name?', 'top');
-          return;
-        }
+        if (!this.$refs.form.validate()) return;
 
         let newScoreRecord = {
           name: this.userName,
@@ -195,14 +213,6 @@
       });
 
       this.score_DOM_element = document.getElementById('score_p');
-      this.userName_DOM_element = document.getElementById('user-name');
-    },
-
-    watch: {
-      userName: function () {
-        if (this.userName_DOM_element._tippy)
-          this.userName_DOM_element._tippy.destroy();
-      }
     }
   }
 </script>
@@ -216,18 +226,5 @@
     flex-direction: column;
     text-align: center;
     margin: 0 40px 0 40px;
-  }
-
-  #score_p {
-    font-size: 250%;
-    margin: 10px;
-  }
-
-  form {
-    display: flex;
-  }
-
-  .m-3 {
-    margin: 3px;
   }
 </style>

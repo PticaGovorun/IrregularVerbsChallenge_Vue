@@ -1,57 +1,64 @@
 <template>
-  <div id="container" @TippyIsHidden='setTippiesContent'>
+  <div id="container">
     <!--"pickedVerb[4]" is the russian form of the verb-->
     <Typer-Element propText="Okay, here we go!"
                    :textForTyping="pickedVerb[4]"
-                   @TypingIsFinished='showAllTippy'
+                   @TypingIsFinished='showHints'
                    />
-    <form id="verbs_form" autocomplete="off">
+
+    <v-form id="verbs_form" autocomplete="off">
       <div id='verb-inputs_container'>
-        <Default-Input id="Default-Input-1"
-                       class="m-3"
-                       :class="{ green_border: isDefeated && !isVerb_1_Incorrect,
-                                 red_border: isVerb_1_Incorrect }"
-                       placeholder="infinitive (v1)"
-                       v-model="infinitiveInputValue"
-                       />
-        <Default-Input id="Default-Input-2"
-                       class="m-3"
-                       :class="{ green_border: isDefeated && !isVerb_2_Incorrect,
-                                 red_border: isVerb_2_Incorrect }"
-                       placeholder="past simple (v2)"
-                       v-model="pastSimpleInputValue"
-                       />
-        <Default-Input id="Default-Input-3"
-                       class="m-3"
-                       :class="{ green_border: isDefeated && !isVerb_3_Incorrect,
-                                 red_border: isVerb_3_Incorrect }"
-                       placeholder="past participle (v3)"
-                       v-model="pastParticipleInputValue"
-                       />
+        <v-text-field
+            id="input-1"
+            class='d-inline-block mx-3'
+            :label='inputs[1].label'
+            v-model='inputs[1].value'
+            :hint='inputs[1].hint'
+            persistent-hint
+            :error-messages='inputs[1].errorMsg'
+            :success-messages='inputs[1].successMsg'
+        ></v-text-field>
+        <v-text-field
+            id="input-2"
+            class='d-inline-block mx-3'
+            :label='inputs[2].label'
+            v-model="inputs[2].value"
+            :hint='inputs[2].hint'
+            persistent-hint
+            :error-messages='inputs[2].errorMsg'
+            :success-messages='inputs[2].successMsg'
+        ></v-text-field>
+        <v-text-field
+            id="input-3"
+            class='d-inline-block mx-3'
+            :label='inputs[3].label'
+            v-model="inputs[3].value"
+            :hint='inputs[3].hint'
+            persistent-hint
+            :error-messages='inputs[3].errorMsg'
+            :success-messages='inputs[3].successMsg'
+        ></v-text-field>
       </div>
-      <div id="btns-container">
-        <Default-Button value="Back"
-                        class='m-3'
-                        @click.native="$router.push('/')"
-                        />
-        <Default-Button value="Submit"
-                        type="submit"
-                        class='m-3'
-                        @click.native.prevent="submitVerbs"
-                        />
+
+      <div id="btns-container" class='mt-3'>
+        <v-btn class='mx-1'
+               @click.native='$router.push("/")'
+               outlined>
+          Back
+        </v-btn>
+        <v-btn class='mx-1'
+               type="submit"
+               @click.native.prevent="submitVerbs"
+               outlined
+        >Submit
+        </v-btn>
       </div>
-    </form>
-    <p></p>
+    </v-form>
   </div>
 </template>
 
 <script>
   import TyperElement from "@/components/Typer-Element.vue";
-  import DefaultInput from "@/components/Default-Input.vue";
-  import DefaultButton from "@/components/Default-Button.vue";
-
-  import tippy from 'tippy.js';
-  import 'tippy.js/themes/light-border.css';
 
   export default {
     name: 'LearningModeView',
@@ -66,28 +73,40 @@
     },
 
     components:{
-      TyperElement,
-      DefaultInput,
-      DefaultButton
+      TyperElement
     },
 
     data: function () {
       return {
         pickedVerb: [],
 
-        infinitiveInputValue: "",
-        pastSimpleInputValue: "",
-        pastParticipleInputValue: "",
+        inputs: {
+          1: {
+            value: '',
+            label: 'Infinitive (v1)',
+            hint: '',
+            errorMsg: '',
+            successMsg: ''
+          },
+
+          2: {
+            value: '',
+            label: 'Past simple (v2)',
+            hint: '',
+            errorMsg: '',
+            successMsg: ''
+          },
+
+          3: {
+            value: '',
+            label: 'Past participle (v3)',
+            hint: '',
+            errorMsg: '',
+            successMsg: ''
+          }
+        },
 
         isDefeated: false,
-
-        isVerb_1_Incorrect: false,
-        isVerb_2_Incorrect: false,
-        isVerb_3_Incorrect: false,
-
-        defaultInput_1: null,
-        defaultInput_2: null,
-        defaultInput_3: null
       }
     },
     methods: {
@@ -99,108 +118,47 @@
       submitVerbs() {
         this.isDefeated = false;
 
-        this.isVerb_1_Incorrect = false;
-        this.isVerb_2_Incorrect = false;
-        this.isVerb_3_Incorrect = false;
-
-        if (this.pickedVerb[1] !== this.infinitiveInputValue) {
-          this.isVerb_1_Incorrect = true;
-          this.isDefeated = true;
-        }
-
-        if (this.pickedVerb[2] !== this.pastSimpleInputValue) {
-          this.isVerb_2_Incorrect = true;
-          this.isDefeated = true;
-        }
-
-        if (this.pickedVerb[3] !== this.pastParticipleInputValue) {
-          this.isVerb_3_Incorrect = true;
-          this.isDefeated = true;
-        }
+        this.checkEachVerb();
 
         if (this.isDefeated) return;
 
+        this.continueToPlay();
+      },
+
+      checkEachVerb() {
+        for (let i = 1; i < 4; i ++) {
+          if (this.pickedVerb[i] !== this.inputs[i].value) {
+            this.inputs[i].errorMsg = this.pickedVerb[i];
+            this.isDefeated = true;
+          } else {
+            this.inputs[i].successMsg = this.pickedVerb[i];
+          }
+        }
+      },
+
+      continueToPlay() {
         this.pickRandomVerb();
         this.resetInputs();
-        this.defaultInput_1.focus();
-
-        this.defaultInput_1._tippy.hide();
-        this.defaultInput_2._tippy.hide();
-        this.defaultInput_3._tippy.hide();
+        this.input_1.focus();
       },
 
       resetInputs() {
-        this.infinitiveInputValue = this.pastSimpleInputValue =
-          this.pastParticipleInputValue = "";
+        this.inputs[1].value = this.inputs[2].value = this.inputs[3].value = '';
       },
 
-      createTippy(target, verb, placement, eventName) {
-        tippy(target, {
-          content: verb,
-          placement: placement,
-          onHidden(instance) {
-            instance.reference.dispatchEvent(new CustomEvent(eventName));
-          }
-        });
-      },
-
-      showAllTippy() {
-        this.defaultInput_1._tippy.show();
-        this.defaultInput_2._tippy.show();
-        this.defaultInput_3._tippy.show();
-      },
-
-      setTippiesContent() {
-        this.defaultInput_1._tippy.setContent(this.pickedVerb[1]);
-        this.defaultInput_2._tippy.setContent(this.pickedVerb[2]);
-        this.defaultInput_3._tippy.setContent(this.pickedVerb[3]);
+      showHints() {
+        this.inputs[1].hint = this.pickedVerb[1];
+        this.inputs[2].hint = this.pickedVerb[2];
+        this.inputs[3].hint = this.pickedVerb[3];
       }
     },
 
     mounted() {
       this.pickRandomVerb();
 
-      tippy.setDefaults({
-        trigger: 'manual',
-        arrow: true,
-        interactive: true,
-        theme: 'light-border',
-        ignoreAttributes: true,
-        hideOnClick: false
-      });
-
-      this.defaultInput_1 = document.getElementById('Default-Input-1');
-      this.defaultInput_2 = document.getElementById('Default-Input-2');
-      this.defaultInput_3 = document.getElementById('Default-Input-3');
-
-      this.createTippy(this.defaultInput_1,
-                       this.pickedVerb[1],
-                       'left',
-                       'Tippy_1_IsHidden');
-      this.createTippy(this.defaultInput_2,
-                       this.pickedVerb[2],
-                       'top-end',
-                       'Tippy_2_IsHidden');
-      this.createTippy(this.defaultInput_3,
-                       this.pickedVerb[3],
-                       'right',
-                       'Tippy_3_IsHidden');
-
-      this.defaultInput_1.addEventListener('Tippy_1_IsHidden', () => {
-        this.defaultInput_1._tippy.setContent(this.pickedVerb[1]);
-      });
-      this.defaultInput_2.addEventListener('Tippy_2_IsHidden', () => {
-        this.defaultInput_2._tippy.setContent(this.pickedVerb[2]);
-      });
-      this.defaultInput_3.addEventListener('Tippy_3_IsHidden', () => {
-        this.defaultInput_3._tippy.setContent(this.pickedVerb[3]);
-      });
-    },
-
-    beforeDestroy() {
-      this.defaultInput_1._tippy.destroy();
-      this.defaultInput_2._tippy.destroy();
-      this.defaultInput_3._tippy.destroy();
+      this.input_1 = document.getElementById('input-1');
+      this.input_2 = document.getElementById('input-2');
+      this.input_3 = document.getElementById('input-3');
     }
   }
 </script>
@@ -213,32 +171,5 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
-  }
-
-  form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-
-  #verb-inputs_container {
-    margin: 0 100px 0 100px;
-  }
-
-  #btns-container {
-    margin: 25px 0 25px 0;
-  }
-
-  .m-3 {
-    margin: 3px;
-  }
-
-  .red_border {
-    border: 1px red dashed;
-  }
-
-  .green_border {
-    border: 1px green dashed;
   }
 </style>
