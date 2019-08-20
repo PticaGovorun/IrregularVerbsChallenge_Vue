@@ -86,6 +86,7 @@
 <style scoped>
   p {
     font-size: 200%;
+    margin: 0;
   }
 
   span {

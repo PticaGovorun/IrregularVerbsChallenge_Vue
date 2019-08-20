@@ -4,27 +4,21 @@
     <h1>Irregular Verbs Challenge</h1>
     <p>What to do? &#8594; enter three forms of verbs as many times in a row as you can.</p>
 
-    <router-link to="/game-field">
-      <Default-Button value="Competitive mode"/>
-    </router-link>
+    <v-btn class='mx-1' to='/game-field' outlined>
+      Competitive mode
+    </v-btn>
 
     <p style='margin: 7px'>or</p>
 
-    <router-link to="/learning-mode">
-      <Default-Button value="Learning mode"/>
-    </router-link>
+    <v-btn class='mx-1' to='/learning-mode' outlined>
+      Learning mode
+    </v-btn>
   </div>
 </template>
 
 <script>
-  import DefaultButton from "./Default-Button.vue";
-
   export default {
-    name: "Welcome-To",
-
-    components: {
-      DefaultButton
-    }
+    name: "Welcome-To"
   }
 </script>
 
