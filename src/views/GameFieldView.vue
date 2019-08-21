@@ -37,7 +37,7 @@
       <div id="btns-container" class='mt-3'>
         <v-btn v-if="!isDefeated"
                type="submit"
-               @click.native.prevent="submitVerbs"
+               @click.native.prevent="tryToSubmitVerbs"
                outlined
         >Submit</v-btn>
         <v-btn v-if="isDefeated"
@@ -107,7 +107,7 @@
         return nextVerb;
       },
 
-      submitVerbs() {
+      tryToSubmitVerbs() {
         this.checkEachVerb();
 
         if (this.isDefeated) {

@@ -48,7 +48,7 @@
         </v-btn>
         <v-btn class='mx-1'
                type="submit"
-               @click.native.prevent="submitVerbs"
+               @click.native.prevent="tryToSubmitVerbs"
                outlined
         >Submit
         </v-btn>
@@ -117,7 +117,7 @@
         return nextVerb;
       },
 
-      submitVerbs() {
+      tryToSubmitVerbs() {
         this.isDefeated = false;
 
         this.checkEachVerb();
