@@ -100,10 +100,11 @@
       }
     },
     methods: {
-      pickRandomVerb() {
-        this.pickedVerb = this.verbs[Math.floor( Math.random() *
-          this.verbs.length )];
-        console.dir(this.pickedVerb); //shhhhh
+      pickRandomVerb(verbs) {
+        let nextVerb = verbs[Math.floor( Math.random() * verbs.length )];
+        console.dir(nextVerb);
+
+        return nextVerb;
       },
 
       submitVerbs() {
@@ -131,7 +132,7 @@
 
       continueToPlay() {
         this.score++;
-        this.pickRandomVerb();
+        this.pickedVerb = this.pickRandomVerb(this.verbs);
         this.resetInputs();
         this.input_1.focus();
       },
@@ -145,7 +146,7 @@
       this.score = 0;
       this.$emit("update:score", this.score);
 
-      this.pickRandomVerb();
+      this.pickedVerb = this.pickRandomVerb(this.verbs);
     },
 
     mounted() {

@@ -110,9 +110,11 @@
       }
     },
     methods: {
-      pickRandomVerb() {
-        this.pickedVerb = this.verbs[Math.floor( Math.random() *
-          this.verbs.length )];
+      pickRandomVerb(verbs) {
+        let nextVerb = verbs[Math.floor( Math.random() * verbs.length )];
+        console.dir(nextVerb);
+
+        return nextVerb;
       },
 
       submitVerbs() {
@@ -138,7 +140,7 @@
       },
 
       continueToPlay() {
-        this.pickRandomVerb();
+        this.pickedVerb = this.pickRandomVerb(this.verbs);
         this.resetInputs();
         this.resetHints();
         this.input_1.focus();
@@ -162,7 +164,7 @@
     },
 
     mounted() {
-      this.pickRandomVerb();
+      this.pickedVerb = this.pickRandomVerb(this.verbs);
 
       this.input_1 = document.getElementById('input-1');
       this.input_2 = document.getElementById('input-2');
