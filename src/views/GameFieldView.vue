@@ -1,8 +1,9 @@
 <template>
   <div id="container">
     <!--"pickedVerb[4]" is the russian form of the verb-->
+    <p class='overline'>score: {{ score }}</p>
     <Typer-Element propText="Okay, here we go!"
-                   :textForTyping="pickedVerb[4]"
+                   :textForTyping='pickedVerb[4]'
                    />
     <form id="verbs_form" autocomplete="off">
       <div id='verb-inputs_container'>
@@ -97,6 +98,8 @@
         },
 
         isDefeated: false,
+
+        textForTyping: ''
       }
     },
     methods: {
