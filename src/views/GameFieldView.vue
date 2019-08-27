@@ -1,8 +1,9 @@
 <template>
   <div id="container">
     <!--"pickedVerb[4]" is the russian form of the verb-->
+    <p class='overline'>score: {{ score }}</p>
     <Typer-Element propText="Okay, here we go!"
-                   :textForTyping="pickedVerb[4]"
+                   :textForTyping='pickedVerb[4]'
                    />
     <form id="verbs_form" autocomplete="off">
       <div id='verb-inputs_container'>
@@ -37,7 +38,7 @@
       <div id="btns-container" class='mt-3'>
         <v-btn v-if="!isDefeated"
                type="submit"
-               @click.native.prevent="submitVerbs"
+               @click.native.prevent="tryToSubmitVerbs"
                outlined
         >Submit</v-btn>
         <v-btn v-if="isDefeated"
@@ -97,16 +98,19 @@
         },
 
         isDefeated: false,
+
+        textForTyping: ''
       }
     },
     methods: {
-      pickRandomVerb() {
-        this.pickedVerb = this.verbs[Math.floor( Math.random() *
-          this.verbs.length )];
-        console.dir(this.pickedVerb); //shhhhh
+      pickRandomVerb(verbs) {
+        let nextVerb = verbs[Math.floor( Math.random() * verbs.length )];
+        console.dir(nextVerb);
+
+        return nextVerb;
       },
 
-      submitVerbs() {
+      tryToSubmitVerbs() {
         this.checkEachVerb();
 
         if (this.isDefeated) {
@@ -131,7 +135,7 @@
 
       continueToPlay() {
         this.score++;
-        this.pickRandomVerb();
+        this.pickedVerb = this.pickRandomVerb(this.verbs);
         this.resetInputs();
         this.input_1.focus();
       },
@@ -145,7 +149,7 @@
       this.score = 0;
       this.$emit("update:score", this.score);
 
-      this.pickRandomVerb();
+      this.pickedVerb = this.pickRandomVerb(this.verbs);
     },
 
     mounted() {

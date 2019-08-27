@@ -44,11 +44,11 @@
         <v-btn class='mx-1'
                @click.native='$router.push("/")'
                outlined>
-          Back
+          Stop
         </v-btn>
         <v-btn class='mx-1'
                type="submit"
-               @click.native.prevent="submitVerbs"
+               @click.native.prevent="tryToSubmitVerbs"
                outlined
         >Submit
         </v-btn>
@@ -110,12 +110,14 @@
       }
     },
     methods: {
-      pickRandomVerb() {
-        this.pickedVerb = this.verbs[Math.floor( Math.random() *
-          this.verbs.length )];
+      pickRandomVerb(verbs) {
+        let nextVerb = verbs[Math.floor( Math.random() * verbs.length )];
+        console.dir(nextVerb);
+
+        return nextVerb;
       },
 
-      submitVerbs() {
+      tryToSubmitVerbs() {
         this.isDefeated = false;
 
         this.checkEachVerb();
@@ -131,19 +133,27 @@
             this.inputs[i].errorMsg = this.pickedVerb[i];
             this.isDefeated = true;
           } else {
+            this.inputs[i].errorMsg = '';
             this.inputs[i].successMsg = this.pickedVerb[i];
           }
         }
       },
 
       continueToPlay() {
-        this.pickRandomVerb();
+        this.pickedVerb = this.pickRandomVerb(this.verbs);
         this.resetInputs();
+        this.resetHints();
         this.input_1.focus();
       },
 
       resetInputs() {
         this.inputs[1].value = this.inputs[2].value = this.inputs[3].value = '';
+      },
+
+      resetHints() {
+        for (let i = 1; i < 4; i ++) {
+          this.inputs[i].hint = this.inputs[i].errorMsg = this.inputs[i].successMsg = '';
+        }
       },
 
       showHints() {
@@ -154,7 +164,7 @@
     },
 
     mounted() {
-      this.pickRandomVerb();
+      this.pickedVerb = this.pickRandomVerb(this.verbs);
 
       this.input_1 = document.getElementById('input-1');
       this.input_2 = document.getElementById('input-2');
