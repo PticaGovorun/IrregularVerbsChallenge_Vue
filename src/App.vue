@@ -1,11 +1,14 @@
 <template>
   <v-app>
     <div id="app">
-      <router-view v-if="isVerbsFetched"
-                   :verbs="verbs"
-                   :score.sync="score"
-                   :database='database'
-                   />
+      <transition name='fade'
+                  mode='out-in'>
+        <router-view v-if="isVerbsFetched"
+                     :verbs="verbs"
+                     :score.sync="score"
+                     :database='database'
+                     />
+      </transition>
 
       <div id="fetch-error-container" v-if="isVerbsFetchError">
         <p id="sad-smile">(-_-)</p>
@@ -114,5 +117,17 @@
   #sad-smile {
     font-size: 1000%;
     margin: 20vh 0 10vh 0;
+  }
+
+  .fade-enter-active,
+  .fade-leave-active {
+    transition-duration: 0.4s;
+    transition-property: opacity;
+    transition-timing-function: ease;
+  }
+
+  .fade-enter,
+  .fade-leave-active {
+    opacity: 0
   }
 </style>
