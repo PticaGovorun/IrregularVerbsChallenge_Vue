@@ -44,7 +44,7 @@
         <v-btn class='mx-1'
                @click.native='$router.push("/")'
                outlined>
-          Back
+          Stop
         </v-btn>
         <v-btn class='mx-1'
                type="submit"
