@@ -15,7 +15,7 @@
             :readonly='isDefeated'
             :error-messages='inputs[1].hint'
             :success='isDefeated && !inputs[1].isIncorrect'
-        ></v-text-field>
+        />
         <v-text-field
             id="input-2"
             class='d-inline-block mx-3'
@@ -24,7 +24,7 @@
             :readonly="isDefeated"
             :error-messages='inputs[2].hint'
             :success='isDefeated && !inputs[2].isIncorrect'
-        ></v-text-field>
+        />
         <v-text-field
             id="input-3"
             class='d-inline-block mx-3'
@@ -33,7 +33,7 @@
             :readonly="isDefeated"
             :error-messages='inputs[3].hint'
             :success='isDefeated && !inputs[3].isIncorrect'
-        ></v-text-field>
+        />
       </div>
       <div id="btns-container" class='mt-3'>
         <v-btn v-if="!isDefeated"
@@ -61,8 +61,7 @@
       verbs: {
         type: Array,
         required: true,
-        default:
-          [["0","null","null","null","Error: the prop-verbs was not received from the parent"]]
+        default: [["0","null","null","null","Error: the prop-verbs was not received from the parent"]]
       }
     },
 
