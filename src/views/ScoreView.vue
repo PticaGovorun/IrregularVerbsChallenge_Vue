@@ -9,7 +9,7 @@
                     :rules='userName.rules'
                     required
                     outlined
-                    ></v-text-field>
+      />
       <v-btn outlined
              type='submit'
              @click.native="submitNameAndScore"
