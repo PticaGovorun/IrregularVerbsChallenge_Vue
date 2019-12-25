@@ -15,6 +15,7 @@
             :readonly='isDefeated'
             :error-messages='inputs[1].hint'
             :success='isDefeated && !inputs[1].isIncorrect'
+            @input.native='inputs[1].value = inputs[1].value.toLowerCase()'
         />
         <v-text-field
             id="input-2"
@@ -24,6 +25,7 @@
             :readonly="isDefeated"
             :error-messages='inputs[2].hint'
             :success='isDefeated && !inputs[2].isIncorrect'
+            @input.native='inputs[2].value = inputs[2].value.toLowerCase()'
         />
         <v-text-field
             id="input-3"
@@ -33,6 +35,7 @@
             :readonly="isDefeated"
             :error-messages='inputs[3].hint'
             :success='isDefeated && !inputs[3].isIncorrect'
+            @input.native='inputs[3].value = inputs[3].value.toLowerCase()'
         />
       </div>
       <div id="btns-container" class='mt-3'>
