@@ -12,7 +12,7 @@
       />
       <v-btn outlined
              type='submit'
-             @click.native="submitNameAndScore"
+             @click.native.prevent="submitNameAndScore"
              class='ml-3'
              height='56'
              >Submit</v-btn>
