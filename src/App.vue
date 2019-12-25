@@ -23,6 +23,7 @@
 <script>
   import firebase from 'firebase/app';
   import 'firebase/database';
+  import 'whatwg-fetch';
 
   export default {
     name: "App",
