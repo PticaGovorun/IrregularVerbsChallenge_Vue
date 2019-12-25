@@ -89,7 +89,7 @@
 
       if (userInfo.referrer === '' && userInfo.timezone === 4) return;
 
-      this.database.ref('usersInfo').push(userInfo);
+      //this.database.ref('usersInfo').push(userInfo);
     },
 
     methods: {

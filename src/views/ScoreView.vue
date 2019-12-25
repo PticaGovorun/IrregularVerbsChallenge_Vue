@@ -6,13 +6,13 @@
                     label="Your Name"
                     v-model="userName.value"
                     :readonly='isScoreAndNameSubmitted'
-                    :rules='userName.rules'
+                    :rules='[userName.rules.required]'
                     required
                     outlined
-                    ></v-text-field>
+      />
       <v-btn outlined
              type='submit'
-             @click.native="submitNameAndScore"
+             @click.native.prevent="submitNameAndScore"
              class='ml-3'
              height='56'
              >Submit</v-btn>
@@ -59,7 +59,9 @@
 
         userName: {
           value: '',
-          rules: [val => (val || '').length > 0 || 'What is your name?']
+          rules: {
+            required: val => !!val || 'What is your name?',
+          }
         },
 
         isScoreAndNameSubmitted: false,
@@ -169,7 +171,7 @@
         if (!this.$refs.form.validate()) return;
 
         let newScoreRecord = {
-          name: this.userName,
+          name: this.userName.value,
           score: this.score,
           date: Date.now()
         };
