@@ -171,7 +171,7 @@
         if (!this.$refs.form.validate()) return;
 
         let newScoreRecord = {
-          name: this.userName,
+          name: this.userName.value,
           score: this.score,
           date: Date.now()
         };
