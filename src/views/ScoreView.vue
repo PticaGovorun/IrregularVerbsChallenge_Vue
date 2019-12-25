@@ -6,7 +6,7 @@
                     label="Your Name"
                     v-model="userName.value"
                     :readonly='isScoreAndNameSubmitted'
-                    :rules='userName.rules'
+                    :rules='[userName.rules.required]'
                     required
                     outlined
       />
@@ -59,7 +59,9 @@
 
         userName: {
           value: '',
-          rules: [val => (val || '').length > 0 || 'What is your name?']
+          rules: {
+            required: val => !!val || 'What is your name?',
+          }
         },
 
         isScoreAndNameSubmitted: false,
