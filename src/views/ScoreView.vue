@@ -28,6 +28,7 @@
                   :mobile-breakpoint='300'
                   height='220'
                   item-key='index'
+                  class='records-table'
                   >
     </v-data-table>
 
@@ -228,5 +229,9 @@
     flex-direction: column;
     text-align: center;
     margin: 0 40px 0 40px;
+  }
+
+  .records-table {
+    border: 1px lightgray solid;
   }
 </style>
