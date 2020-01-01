@@ -17,7 +17,7 @@
             persistent-hint
             :error-messages='inputs[1].errorMsg'
             :success-messages='inputs[1].successMsg'
-        ></v-text-field>
+        />
         <v-text-field
             id="input-2"
             class='d-inline-block mx-3'
@@ -27,7 +27,7 @@
             persistent-hint
             :error-messages='inputs[2].errorMsg'
             :success-messages='inputs[2].successMsg'
-        ></v-text-field>
+        />
         <v-text-field
             id="input-3"
             class='d-inline-block mx-3'
@@ -37,7 +37,7 @@
             persistent-hint
             :error-messages='inputs[3].errorMsg'
             :success-messages='inputs[3].successMsg'
-        ></v-text-field>
+        />
       </div>
 
       <div id="btns-container" class='mt-3'>
