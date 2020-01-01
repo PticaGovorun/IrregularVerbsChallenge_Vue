@@ -17,6 +17,7 @@
             persistent-hint
             :error-messages='inputs[1].errorMsg'
             :success-messages='inputs[1].successMsg'
+            @input.native='inputs[1].value = inputs[1].value.toLowerCase()'
         />
         <v-text-field
             id="input-2"
@@ -27,6 +28,7 @@
             persistent-hint
             :error-messages='inputs[2].errorMsg'
             :success-messages='inputs[2].successMsg'
+            @input.native='inputs[2].value = inputs[2].value.toLowerCase()'
         />
         <v-text-field
             id="input-3"
@@ -37,6 +39,7 @@
             persistent-hint
             :error-messages='inputs[3].errorMsg'
             :success-messages='inputs[3].successMsg'
+            @input.native='inputs[3].value = inputs[3].value.toLowerCase()'
         />
       </div>
 
