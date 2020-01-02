@@ -17,7 +17,8 @@
             persistent-hint
             :error-messages='inputs[1].errorMsg'
             :success-messages='inputs[1].successMsg'
-        ></v-text-field>
+            @input.native='dynamicCheck(inputs[1], pickedVerb[1])'
+        />
         <v-text-field
             id="input-2"
             class='d-inline-block mx-3'
@@ -27,7 +28,8 @@
             persistent-hint
             :error-messages='inputs[2].errorMsg'
             :success-messages='inputs[2].successMsg'
-        ></v-text-field>
+            @input.native='dynamicCheck(inputs[2], pickedVerb[2])'
+        />
         <v-text-field
             id="input-3"
             class='d-inline-block mx-3'
@@ -37,7 +39,8 @@
             persistent-hint
             :error-messages='inputs[3].errorMsg'
             :success-messages='inputs[3].successMsg'
-        ></v-text-field>
+            @input.native='dynamicCheck(inputs[3], pickedVerb[3])'
+        />
       </div>
 
       <div id="btns-container" class='mt-3'>
@@ -129,7 +132,7 @@
 
       checkEachVerb() {
         for (let i = 1; i < 4; i ++) {
-          if (this.pickedVerb[i] !== this.inputs[i].value) {
+          if (this.pickedVerb[i] !== this.inputs[i].value.toLowerCase().trim()) {
             this.inputs[i].errorMsg = this.pickedVerb[i];
             this.isDefeated = true;
           } else {
@@ -160,7 +163,32 @@
         this.inputs[1].hint = this.pickedVerb[1];
         this.inputs[2].hint = this.pickedVerb[2];
         this.inputs[3].hint = this.pickedVerb[3];
-      }
+      },
+
+      dynamicCheck(input, pickedVerb) {
+        input.value = input.value.toLowerCase().trim();
+
+        const inputLength = input.value.length;
+        const pickedLenght = pickedVerb.length;
+
+        input.errorMsg = '';
+
+        if (inputLength < pickedLenght && input.value !== pickedVerb.slice(0,
+          inputLength)) {
+          input.errorMsg = pickedVerb;
+          return;
+        }
+
+        if (inputLength === pickedLenght && input.value !== pickedVerb) {
+          input.errorMsg = pickedVerb;
+          return;
+        }
+
+        if (inputLength > pickedLenght) {
+          input.errorMsg = pickedVerb;
+          return;
+        }
+      },
     },
 
     mounted() {
