@@ -17,7 +17,7 @@
             persistent-hint
             :error-messages='inputs[1].errorMsg'
             :success-messages='inputs[1].successMsg'
-            @input.native='inputs[1].value = inputs[1].value.toLowerCase()'
+            @input.native='dynamicCheck(inputs[1], pickedVerb[1])'
         />
         <v-text-field
             id="input-2"
@@ -28,7 +28,7 @@
             persistent-hint
             :error-messages='inputs[2].errorMsg'
             :success-messages='inputs[2].successMsg'
-            @input.native='inputs[2].value = inputs[2].value.toLowerCase()'
+            @input.native='dynamicCheck(inputs[2], pickedVerb[2])'
         />
         <v-text-field
             id="input-3"
@@ -39,7 +39,7 @@
             persistent-hint
             :error-messages='inputs[3].errorMsg'
             :success-messages='inputs[3].successMsg'
-            @input.native='inputs[3].value = inputs[3].value.toLowerCase()'
+            @input.native='dynamicCheck(inputs[3], pickedVerb[3])'
         />
       </div>
 
@@ -163,7 +163,32 @@
         this.inputs[1].hint = this.pickedVerb[1];
         this.inputs[2].hint = this.pickedVerb[2];
         this.inputs[3].hint = this.pickedVerb[3];
-      }
+      },
+
+      dynamicCheck(input, pickedVerb) {
+        input.value = input.value.toLowerCase().trim();
+
+        const inputLength = input.value.length;
+        const pickedLenght = pickedVerb.length;
+
+        input.errorMsg = '';
+
+        if (inputLength < pickedLenght && input.value !== pickedVerb.slice(0,
+          inputLength)) {
+          input.errorMsg = pickedVerb;
+          return;
+        }
+
+        if (inputLength === pickedLenght && input.value !== pickedVerb) {
+          input.errorMsg = pickedVerb;
+          return;
+        }
+
+        if (inputLength > pickedLenght) {
+          input.errorMsg = pickedVerb;
+          return;
+        }
+      },
     },
 
     mounted() {
