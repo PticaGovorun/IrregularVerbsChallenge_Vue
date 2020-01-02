@@ -126,7 +126,7 @@
 
       checkEachVerb() {
         for (let i = 1; i < 4; i ++) {
-          if (this.pickedVerb[i] !== this.inputs[i].value.toLowerCase()) {
+          if (this.pickedVerb[i] !== this.inputs[i].value.toLowerCase().trim()) {
             this.inputs[i].isIncorrect = true;
             this.isDefeated = true;
 

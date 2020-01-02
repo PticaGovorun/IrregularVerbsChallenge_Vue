@@ -132,7 +132,7 @@
 
       checkEachVerb() {
         for (let i = 1; i < 4; i ++) {
-          if (this.pickedVerb[i] !== this.inputs[i].value.toLowerCase()) {
+          if (this.pickedVerb[i] !== this.inputs[i].value.toLowerCase().trim()) {
             this.inputs[i].errorMsg = this.pickedVerb[i];
             this.isDefeated = true;
           } else {
