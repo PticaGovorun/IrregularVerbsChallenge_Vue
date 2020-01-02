@@ -33,9 +33,8 @@
     </v-data-table>
 
     <div class='mt-3'>
-      <v-btn outlined to='/game-field'>Play again</v-btn>
-      <p class='mx-2 d-inline-block'>or</p>
-      <v-btn outlined to='/learning-mode'>Learn verbs</v-btn>
+      <v-btn outlined to='/game-field' class='ma-1'>Play again</v-btn>
+      <v-btn outlined to='/learning-mode' class='ma-1'>Learn verbs</v-btn>
     </div>
   </div>
 </template>
