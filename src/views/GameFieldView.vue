@@ -1,7 +1,7 @@
 <template>
   <div id="container">
     <!--"pickedVerb[4]" is the russian form of the verb-->
-    <p class='overline'>score: {{ score }}</p>
+    <p class='overline'>score: {{ score }}/100</p>
     <Typer-Element propText="Okay, here we go!"
                    :textForTyping='pickedVerb[4]'
                    />
