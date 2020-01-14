@@ -38,18 +38,18 @@
             @input.native='inputs[3].value = inputs[3].value.toLowerCase().trim()'
         />
       </div>
-      <div id="btns-container" class='mt-3'>
-        <v-btn v-if="!isDefeated"
-               type="submit"
-               @click.native.prevent="tryToSubmitVerbs"
-               outlined
-        >Submit</v-btn>
-        <v-btn v-if="isDefeated"
-               type="submit"
-               to='/score-view'
-               outlined
-        >Score view</v-btn>
-      </div>
+      <v-btn v-if="!isDefeated" type="submit" outlined class='mt-3'
+             @click.native.prevent="tryToSubmitVerbs">
+        Submit
+      </v-btn>
+      <template v-if="isDefeated">
+        <v-btn outlined class='mt-3 mx-1' @click.native='$router.go()'>
+          Restart
+        </v-btn>
+        <v-btn outlined class='mt-3 mx-1' type="submit" to='/score-view'>
+          Score view
+        </v-btn>
+      </template>
     </form>
   </div>
 </template>
