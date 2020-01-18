@@ -33,7 +33,8 @@
         verbs: null,
         isVerbsFetched: false,
         isVerbsFetchError: false,
-        score: 0
+        score: 0,
+        database: null,
       }
     },
 
