@@ -1,21 +1,20 @@
 <template>
   <v-app>
     <div id="app">
-      <transition name='fade'
-                  mode='out-in'>
-        <router-view v-if="isVerbsFetched"
-                     :verbs="verbs"
-                     :score.sync="score"
-                     :database='database'
-                     />
+      <transition v-if="isVerbsFetched" name='fade' mode='out-in'>
+        <router-view
+            :verbs="verbs"
+            :score.sync="score"
+            :database="database"
+        />
       </transition>
 
-      <div id="fetch-error-container" v-if="isVerbsFetchError">
+      <template v-if="isVerbsFetchError">
         <p id="sad-smile">(-_-)</p>
         <h2 id="fetch-error_h2">
           Error: could not fetch irregular verbs, come back later...
         </h2>
-      </div>
+      </template>
     </div>
   </v-app>
 </template>
@@ -112,7 +111,7 @@
     overflow: hidden;
   }
 
-  #fetch-error-container {
+  #app {
     text-align: center;
   }
 
