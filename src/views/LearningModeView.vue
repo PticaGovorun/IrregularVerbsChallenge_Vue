@@ -1,5 +1,6 @@
 <template>
   <div id="container">
+    <p class='overline'>{{ verbsCounter }}/100</p>
     <!--"pickedVerb[4]" is the russian form of the verb-->
     <Typer-Element propText="Okay, here we go!"
                    :textForTyping="pickedVerb[4]"
@@ -83,6 +84,8 @@
       return {
         pickedVerb: [],
 
+        verbsCounter: 0,
+
         inputs: {
           1: {
             value: '',
@@ -126,6 +129,8 @@
         this.checkEachVerb();
 
         if (this.isDefeated) return;
+
+        this.verbsCounter++;
 
         this.continueToPlay();
       },
