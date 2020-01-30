@@ -2,7 +2,8 @@
   <div>
     <p>Welcome to</p>
     <h1>Irregular Verbs Challenge</h1>
-    <p>What to do? &#8594; enter three forms of verbs as many times in a row as you can.</p>
+    <p>What to do? &#8594; Type in three forms of verbs as many times in a row
+      as you can.</p>
 
     <v-btn class='mx-1' to='/game-field' outlined>
       Competitive mode
